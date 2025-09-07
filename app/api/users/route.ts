@@ -29,8 +29,9 @@ export async function POST(req: NextRequest) {
       select: { id: true, name: true, email: true, role: true, status: true, createdAt: true, imageUrl: true },
     });
     return NextResponse.json(user, { status: 201 });
-  } catch (e: any) {
-    return NextResponse.json({ message: e?.message || 'Server error' }, { status: 500 });
+  } catch (e: unknown) {
+    const message = e instanceof Error ? e.message : 'Server error';
+    return NextResponse.json({ message }, { status: 500 });
   }
 }
 

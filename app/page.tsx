@@ -1,103 +1,285 @@
-import Image from "next/image";
+import Link from "next/link";
+import { MobileMenu } from "./_components/MobileMenu";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
+    <div className="min-h-screen">
+      {/* Header */}
+      <header className="w-full bg-white top-0 z-10">
+        <div className="w-full mx-auto flex items-center justify-between md:justify-center px-6 py-3 relative">
+          <Link href='/' className="font-semibold text-center"><img src="/images/logo.png" alt="Expert Media Solutions" className="w-30 h-full sm:h-16" /></Link>
+          <MobileMenu
+            links={[
+              { href: '#about', label: 'About Us' },
+              { href: '#services', label: 'Services' },
+              { href: '#team', label: 'Our Team' },
+              { href: '#board', label: 'Board Members' },
+              { href: '#gallery', label: 'Gallery' },
+              { href: '#contact', label: 'Contact Us' },
+              { href: '/login', label: 'Login' },
+            ]}
+          />
+        </div>
+        <div className="mt-0 hidden sm:flex items-center sm:w-full justify-center  text-xs bg-red-400">
+          <nav className="flex items-center">
+            <Link href="#about" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-l-2 border-l-amber-50 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">About Us</Link>
+            <a href="#services" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Services</a>
+            <a href="#team" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Our Team</a>
+            <a href="#board" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Board Members</a>
+            <a href="#gallery" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Gallery</a>
+            <a href="#contact" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Contact Us</a>
+            <a href="/login" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Login</a>
+          </nav>
+        </div>
+      </header>
+
+      {/* Hero */}
+      <section className="relative overflow-hidden px-6 sm:px-10 py-20 bg-gradient-to-b from-red-50 to-red-100 dark:from-red-950 dark:to-red-900">
+        <div className="hero-sliding-banner" />
+        <div className="relative max-w-6xl mx-auto grid md:grid-cols-2 items-center gap-10">
+          <div className="hidden md:block">
+            <div className="h-[340px] bg-[url('/window.svg')] bg-no-repeat bg-left bg-contain opacity-70" />
+          </div>
+          <div className="text-left md:text-left">
+            <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight">
+              Welcome to ExpertMediaSolutions - Your Trusted IT Solutions Partner
+            </h1>
+            <p className="mt-4 text-gray-700 dark:text-gray-200 text-base sm:text-lg max-w-2xl">
+              Transforming your business with innovative IT solutions in today’s fast-paced digital landscape, having the right technology solutions is essential for success.
+            </p>
+            <div className="pt-6">
+              <Link href="#contact" className="inline-flex items-center justify-center rounded-md bg-red-500 text-white px-6 py-3 text-sm font-medium hover:bg-red-600">
+                Find Your Solution
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Expert Media */}
+      <section id="why" className="px-6 sm:px-10 py-16 bg-white dark:bg-neutral-950">
+        <div className="max-w-6xl mx-auto grid gap-3 text-center sm:text-left">
+          <h2 className="text-2xl font-semibold">Why Choose Expert Media?</h2>
+          <p className="text-gray-700 dark:text-gray-200 max-w-3xl mx-auto sm:mx-0">
+            We deliver tailored IT solutions that help businesses thrive—combining automation, analytics, enablement, and
+            education into one cohesive approach.
+          </p>
+        </div>
+      </section>
+
+      {/* Who we are */}
+      <section id="about" className="px-6 sm:px-10 py-16">
+        <div className="max-w-6xl mx-auto grid gap-3">
+          <h2 className="text-2xl font-semibold">Who we are?</h2>
+          <p className="text-gray-700 dark:text-gray-200 max-w-3xl">
+            A team of passionate IT professionals focused on turning technology into business outcomes. Our mission is to
+            deliver innovative, pragmatic solutions that scale with you.
+          </p>
+        </div>
+      </section>
+
+      {/* Our Expertise */}
+      <section id="expertise" className="px-6 sm:px-10 py-16 bg-white dark:bg-neutral-950">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-2xl font-semibold mb-6">Our Expertise</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <FeatureCard title="Robotic Automation" description="Automate repetitive tasks, reduce errors, and boost throughput." />
+            <FeatureCard title="Sales Enablement" description="Equip teams with the tools and processes to close more deals." />
+            <FeatureCard title="Data Analysis" description="Turn data into insight with pipelines, dashboards, and models." />
+            <FeatureCard title="Educational Resources" description="Courses, webinars, and guides to upskill your organization." />
+          </div>
+        </div>
+      </section>
+
+      {/* Services */}
+      <section id="services" className="px-6 sm:px-10 py-16 bg-white dark:bg-neutral-950">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-2xl font-semibold mb-6">Core services</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <ServiceCard title="Helpdesk" points={["Multi-channel support","SLA-driven","Asset management"]} />
+            <ServiceCard title="Cloud & DevOps" points={["AWS/Azure/SaaS","CI/CD","Cost optimization"]} />
+            <ServiceCard title="Security" points={["Access & identity","Backups & DR","Compliance"]} />
+          </div>
+        </div>
+      </section>
+
+      {/* Our Approach */}
+      <section id="approach" className="px-6 sm:px-10 py-16">
+        <div className="max-w-6xl mx-auto grid gap-3">
+          <h2 className="text-2xl font-semibold">Our Approach</h2>
+          <p className="text-gray-700 dark:text-gray-200 max-w-3xl">
+            We partner closely with your stakeholders to understand goals and constraints, then design and implement
+            pragmatic solutions—followed by hands-on training and support.
+          </p>
+        </div>
+      </section>
+
+      {/* Our Process */}
+      <section id="process" className="px-6 sm:px-10 py-16 bg-gradient-to-b from-red-50 to-red-100 dark:from-red-950 dark:to-red-900">
+        <div className="max-w-6xl mx-auto grid gap-6">
+          <h2 className="text-2xl font-semibold">Our Process</h2>
+          <ol className="grid grid-cols-1 md:grid-cols-4 gap-4 list-decimal list-inside">
+            <li className="border rounded-md p-4 bg-white/80 dark:bg-neutral-900/70">
+              <div className="font-medium">Needs Assessment</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">Audit current environment and identify opportunities.</div>
+            </li>
+            <li className="border rounded-md p-4 bg-white/80 dark:bg-neutral-900/70">
+              <div className="font-medium">Solution Design</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">Blueprint aligned to business goals and constraints.</div>
+            </li>
+            <li className="border rounded-md p-4 bg-white/80 dark:bg-neutral-900/70">
+              <div className="font-medium">Implementation</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">Plan, execute, and migrate with minimal disruption.</div>
           </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
+            <li className="border rounded-md p-4 bg-white/80 dark:bg-neutral-900/70">
+              <div className="font-medium">Training & Support</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">Enable your teams and provide ongoing assistance.</div>
           </li>
         </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </section>
+
+      {/* Our Team */}
+      <section id="team" className="px-6 sm:px-10 py-16 bg-white dark:bg-neutral-950">
+        <div className="max-w-6xl mx-auto grid gap-3">
+          <h2 className="text-2xl font-semibold">Our Team</h2>
+          <p className="text-gray-700 dark:text-gray-200 text-sm">Meet the professionals behind our solutions.</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <FeatureCard title="Engineering" description="Cloud, automation, and cybersecurity experts." />
+            <FeatureCard title="Delivery" description="Program and project managers ensuring outcomes." />
+            <FeatureCard title="Advisory" description="Strategy, governance, and compliance specialists." />
+          </div>
+        </div>
+      </section>
+
+      {/* Board Members */}
+      <section id="board" className="px-6 sm:px-10 py-16">
+        <div className="max-w-6xl mx-auto grid gap-3">
+          <h2 className="text-2xl font-semibold">Board Members</h2>
+          <p className="text-gray-700 dark:text-gray-200 text-sm">Guiding our mission and long-term strategy.</p>
+        </div>
+      </section>
+
+      {/* Gallery */}
+      <section id="gallery" className="px-6 sm:px-10 py-16 bg-white dark:bg-neutral-950">
+        <div className="max-w-6xl mx-auto grid gap-3">
+          <h2 className="text-2xl font-semibold">Gallery</h2>
+          <p className="text-gray-700 dark:text-gray-200 text-sm">Snapshots from projects, events, and community work.</p>
+        </div>
+      </section>
+
+      {/* Core Values */}
+      <section id="values" className="px-6 sm:px-10 py-16">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-2xl font-semibold mb-6">Core values</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <FeatureCard title="Innovation" description="Exploring new tech to keep you ahead." />
+            <FeatureCard title="Excellence" description="High standards in delivery and support." />
+            <FeatureCard title="Integrity" description="Honesty and transparency in every engagement." />
+            <FeatureCard title="Customer Focus" description="Outcomes that serve your mission." />
+          </div>
+        </div>
+      </section>
+
+      {/* Products */}
+      <section id="products" className="px-6 sm:px-10 py-16 bg-white dark:bg-neutral-950">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-2xl font-semibold mb-6">Products</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 text-sm">
+            <FeatureCard title="RobEMS" description="Robotic automation suite" />
+            <FeatureCard title="SalEMS" description="Sales enablement toolkit" />
+            <FeatureCard title="LapEMS" description="Hardware & lifecycle" />
+            <FeatureCard title="DatEMS" description="Analytics & insights" />
+            <FeatureCard title="EduEMS" description="Learning resources" />
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section id="contact" className="px-6 sm:px-10 py-16 bg-red-50 dark:bg-red-950">
+        <div className="max-w-6xl mx-auto grid gap-4 text-center">
+          <h3 className="text-xl font-semibold">Let’s plan your next milestone</h3>
+          <p className="text-gray-700 dark:text-gray-200 text-sm">
+            Share your goals and current setup. We’ll follow up within one business day.
+          </p>
+          <Link href="mailto:hello@example.com" className="mx-auto inline-flex items-center justify-center rounded-md bg-black text-white dark:bg-white dark:text-black px-5 py-2.5 text-sm font-medium hover:opacity-90">
+            hello@example.com
+          </Link>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="px-6 sm:px-10 py-10 border-t text-sm text-gray-600 dark:text-gray-300 bg-black">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8">
+          <div className="space-y-2">
+            <div className="font-semibold">ExpertMedia IT</div>
+            <p className="text-xs">Solve problems, improve efficiency, and transform your organization using innovative tech-powered solutions.</p>
+          </div>
+          <div>
+            <div className="font-medium mb-2">Company</div>
+            <ul className="space-y-1">
+              <li><a className="hover:underline" href="#">Home</a></li>
+              <li><a className="hover:underline" href="#about">Company History</a></li>
+              <li><a className="hover:underline" href="#values">Our Vision</a></li>
+              <li><a className="hover:underline" href="#values">Our Mission</a></li>
+            </ul>
+          </div>
+          <div>
+            <div className="font-medium mb-2">Products</div>
+            <ul className="space-y-1">
+              <li><a className="hover:underline" href="#products">RobEMS</a></li>
+              <li><a className="hover:underline" href="#products">SalEMS</a></li>
+              <li><a className="hover:underline" href="#products">LapEMS</a></li>
+              <li><a className="hover:underline" href="#products">DatEMS</a></li>
+              <li><a className="hover:underline" href="#products">EduEMS</a></li>
+            </ul>
+          </div>
+        </div>
+        <div className="max-w-6xl mx-auto mt-8 flex items-center justify-between">
+          <div>© {new Date().getFullYear()} ExpertMedia IT</div>
+          <Link href="/login" className="hover:underline">Admin</Link>
+        </div>
       </footer>
+    </div>
+  );
+}
+
+function FeatureCard({ title, description }: { title: string; description: string }) {
+  return (
+    <div className="border rounded-md p-4 bg-white dark:bg-neutral-950">
+      <div className="text-base font-medium mb-1">{title}</div>
+      <div className="text-sm text-gray-600 dark:text-gray-300">{description}</div>
+    </div>
+  );
+}
+
+function ServiceCard({ title, points }: { title: string; points: string[] }) {
+  return (
+    <div className="border rounded-md p-4 bg-white dark:bg-neutral-950">
+      <div className="text-base font-medium mb-2">{title}</div>
+      <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-300 space-y-1">
+        {points.map((p) => (
+          <li key={p}>{p}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function QuoteCard({ quote, author }: { quote: string; author: string }) {
+  return (
+    <div className="border rounded-md p-4 bg-white/70 dark:bg-neutral-900/70">
+      <p className="text-sm italic mb-2">“{quote}”</p>
+      <div className="text-xs text-gray-600 dark:text-gray-300">{author}</div>
+    </div>
+  );
+}
+
+function Stat({ value, label }: { value: string; label: string }) {
+  return (
+    <div className="border rounded-md p-4 bg-white dark:bg-neutral-950">
+      <div className="text-2xl font-semibold">{value}</div>
+      <div className="text-xs text-gray-600 dark:text-gray-300">{label}</div>
     </div>
   );
 }

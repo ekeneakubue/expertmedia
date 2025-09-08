@@ -33,9 +33,10 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ ok: true, user: { id: user.id, email: user.email, role: user.role } });
-  } catch (e: any) {
+  } catch (e: unknown) {
     console.error('create-user error', e);
-    return NextResponse.json({ message: e?.message || 'Server error' }, { status: 500 });
+    const message = e instanceof Error ? e.message : 'Server error';
+    return NextResponse.json({ message }, { status: 500 });
   }
 }
 

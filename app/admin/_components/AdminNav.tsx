@@ -67,8 +67,8 @@ export function AdminNav({ role: roleProp }: { role?: string }) {
             className={
               'rounded-tl-[15px] rounded-bl-[15px] pl-16 px-3 py-4 transition-colors ' +
               (isActive
-                ? 'bg-gray-200 text-red-700 dark:bg-red-900/40 dark:text-red-200'
-                : 'hover:bg-gray-100 dark:hover:bg-neutral-800')
+                ? 'bg-gray-200 text-red-700 hover:text-red-700 dark:bg-red-900/40 dark:text-red-200'
+                : 'hover:bg-gray-100 hover:text-red-700 dark:hover:bg-neutral-800')
             }
           >
             {link.label}

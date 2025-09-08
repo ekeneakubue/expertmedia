@@ -1,22 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { hashPassword } from '@/lib/auth';
+import type { Prisma } from '@prisma/client';
 import { promises as fs } from 'fs';
 import path from 'path';
 
 export const runtime = 'nodejs';
 
-export async function DELETE(_req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(_req: NextRequest, context: { params: Promise<{ id: string }> }) {
   try {
-    await prisma.user.delete({ where: { id: params.id } });
+    const { id } = await context.params;
+    await prisma.user.delete({ where: { id } });
     return NextResponse.json({ ok: true });
-  } catch (e: any) {
-    return NextResponse.json({ message: e?.message || 'Server error' }, { status: 500 });
+  } catch (e: unknown) {
+    const message = e instanceof Error ? e.message : 'Server error';
+    return NextResponse.json({ message }, { status: 500 });
   }
 }
 
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, context: { params: Promise<{ id: string }> }) {
   try {
+    const { id } = await context.params;
     const contentType = req.headers.get('content-type') || '';
     if (contentType.startsWith('multipart/form-data')) {
       const form = await req.formData();
@@ -27,7 +31,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
       const password = form.get('password') as string | null;
       const avatar = form.get('avatar');
 
-      const data: any = {};
+      const data: Prisma.UserUpdateInput = {};
       if (name !== null) data.name = name;
       if (email !== null) data.email = email;
       if (role !== null) data.role = role;
@@ -45,12 +49,12 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
           const t = (avatar as File).type || '';
           ext = t === 'image/jpeg' ? '.jpg' : t === 'image/webp' ? '.webp' : t === 'image/png' ? '.png' : '.png';
         }
-        const filename = `${params.id}${ext}`;
+        const filename = `${id}${ext}`;
         await fs.writeFile(path.join(publicDir, filename), buf);
         data.imageUrl = `/avatars/${filename}`;
       }
 
-      const user = await prisma.user.update({ where: { id: params.id }, data, select: { id: true, name: true, email: true, role: true, status: true, createdAt: true } });
+      const user = await prisma.user.update({ where: { id }, data, select: { id: true, name: true, email: true, role: true, status: true, createdAt: true } });
       return NextResponse.json(user);
     }
 
@@ -58,17 +62,18 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
     const { name, email, role, status, password } = body as {
       name?: string; email?: string; role?: 'ADMIN' | 'MANAGER' | 'STAFF' | 'CLIENT'; status?: 'ACTIVE' | 'INVITED' | 'SUSPENDED' | 'DISABLED'; password?: string;
     };
-    const data: any = {};
+    const data: Prisma.UserUpdateInput = {};
     if (name !== undefined) data.name = name;
     if (email !== undefined) data.email = email;
     if (role !== undefined) data.role = role;
     if (status !== undefined) data.status = status;
     if (password) data.passwordHash = await hashPassword(password);
 
-    const user = await prisma.user.update({ where: { id: params.id }, data, select: { id: true, name: true, email: true, role: true, status: true, createdAt: true } });
+    const user = await prisma.user.update({ where: { id }, data, select: { id: true, name: true, email: true, role: true, status: true, createdAt: true } });
     return NextResponse.json(user);
-  } catch (e: any) {
-    return NextResponse.json({ message: e?.message || 'Server error' }, { status: 500 });
+  } catch (e: unknown) {
+    const message = e instanceof Error ? e.message : 'Server error';
+    return NextResponse.json({ message }, { status: 500 });
   }
 }
 

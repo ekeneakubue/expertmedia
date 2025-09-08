@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ReactNode } from "react";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -33,7 +34,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
     <div className="h-screen grid grid-cols-[240px_1fr] bg-gray-200">
       <aside className="border-r bg-gray-800 text-gray-50 pl-5">
         <div className="text-center w-full mb-6">
-          <img src="/images/logo2.png" alt="Expert Media Solutions" className="h-full w-[50%] p-4 inline-block" />
+          <Image src="/images/logo2.png" alt="Expert Media Solutions" width={160} height={48} className=" w-[50%] pt-6 inline-block" />
         </div>
         <AdminNav role={role || undefined} />
         <div className="mt-6 text-xs text-gray-500">v1.0</div>
@@ -44,8 +45,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2">
               {avatarUrl ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={avatarUrl} alt={displayName} className="w-8 h-8 rounded-full object-cover" />
+                <Image src={avatarUrl} alt={displayName} width={32} height={32} className="rounded-full object-cover" />
               ) : (
                 <div className="w-8 h-8 rounded-full bg-gray-600" />
               )}

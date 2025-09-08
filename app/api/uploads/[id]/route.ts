@@ -6,8 +6,8 @@ export const runtime = 'nodejs';
 
 const UPLOAD_DIR = path.join(process.cwd(), 'uploads');
 
-export async function GET(_req: NextRequest, { params }: { params: { id: string } }) {
-  const id = params.id;
+export async function GET(_req: NextRequest, context: { params: Promise<{ id: string }> }) {
+  const { id } = await context.params;
   const entries = await fs.readdir(UPLOAD_DIR).catch(() => [] as string[]);
   const file = entries.find((e) => e.startsWith(id + '__') || e === id);
   if (!file) return new NextResponse('Not found', { status: 404 });

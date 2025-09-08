@@ -1,32 +1,36 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import type { Prisma } from '@prisma/client';
 import { hashPassword } from '@/lib/auth';
 import { promises as fs } from 'fs';
 import path from 'path';
 
 export const runtime = 'nodejs';
 
-export async function DELETE(_req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(_req: NextRequest, context: { params: Promise<{ id: string }> }) {
   try {
-    await prisma.client.delete({ where: { id: params.id } });
+    const { id } = await context.params;
+    await prisma.client.delete({ where: { id } });
     return NextResponse.json({ ok: true });
-  } catch (e: any) {
-    return NextResponse.json({ message: e?.message || 'Server error' }, { status: 500 });
+  } catch (e: unknown) {
+    const message = e instanceof Error ? e.message : 'Server error';
+    return NextResponse.json({ message }, { status: 500 });
   }
 }
 
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, context: { params: Promise<{ id: string }> }) {
   try {
+    const { id } = await context.params;
     const contentType = req.headers.get('content-type') || '';
     if (contentType.startsWith('multipart/form-data')) {
       const form = await req.formData();
       const name = form.get('name') as string | null;
       const avatar = form.get('avatar');
 
-      const existing = await prisma.client.findUnique({ where: { id: params.id } });
+      const existing = await prisma.client.findUnique({ where: { id } });
       if (!existing) return NextResponse.json({ message: 'Client not found' }, { status: 404 });
 
-      const data: any = {};
+      const data: Prisma.ClientUpdateInput = {};
       if (name !== null) data.name = name;
 
       // Save avatar and upsert linked user with CLIENT role
@@ -40,7 +44,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
           const t = (avatar as File).type || '';
           ext = t === 'image/jpeg' ? '.jpg' : t === 'image/webp' ? '.webp' : t === 'image/png' ? '.png' : '.png';
         }
-        const filename = `${params.id}${ext}`;
+        const filename = `${id}${ext}`;
         await fs.writeFile(path.join(publicDir, filename), buf);
         const imageUrl = `/avatars/${filename}`;
         await prisma.user.upsert({
@@ -50,12 +54,12 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
         });
       }
 
-      const client = await prisma.client.update({ where: { id: params.id }, data, select: { id: true, name: true, email: true, industry: true, isActive: true, createdAt: true } });
+      const client = await prisma.client.update({ where: { id }, data, select: { id: true, name: true, email: true, industry: true, isActive: true, createdAt: true } });
       return NextResponse.json(client);
     }
 
     const body = await req.json();
-    const data: any = {};
+    const data: Prisma.ClientUpdateInput = {};
     if (body.name !== undefined) data.name = body.name;
     if (body.email !== undefined) data.email = body.email || null;
     if (body.phone !== undefined) data.phone = body.phone || null;
@@ -64,7 +68,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
     if (body.isActive !== undefined) data.isActive = !!body.isActive;
 
     const client = await prisma.client.update({
-      where: { id: params.id },
+      where: { id },
       data,
       select: { id: true, name: true, email: true, industry: true, isActive: true, createdAt: true },
     });
@@ -78,8 +82,9 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
       });
     }
     return NextResponse.json(client);
-  } catch (e: any) {
-    return NextResponse.json({ message: e?.message || 'Server error' }, { status: 500 });
+  } catch (e: unknown) {
+    const message = e instanceof Error ? e.message : 'Server error';
+    return NextResponse.json({ message }, { status: 500 });
   }
 }
 

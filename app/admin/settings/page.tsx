@@ -23,8 +23,9 @@ export default function SettingsPage() {
     try {
       if (!email) { setMessage('No user email cookie'); return; }
       const resUsers = await fetch('/api/users');
-      const users = resUsers.ok ? await resUsers.json() : [];
-      const me = users.find((u: any) => u.email === email);
+      type LiteUser = { id: string; email: string; name?: string };
+      const users: LiteUser[] = resUsers.ok ? await resUsers.json() : [];
+      const me = users.find((u) => u.email === email);
       if (!me) { setMessage('User not found'); return; }
       const form = new FormData();
       form.append('name', name);

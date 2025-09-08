@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { MobileMenu } from "./_components/MobileMenu";
 
 export default function Home() {
@@ -7,7 +8,7 @@ export default function Home() {
       {/* Header */}
       <header className="w-full bg-white top-0 z-10">
         <div className="w-full mx-auto flex items-center justify-between md:justify-center px-6 py-3 relative">
-          <Link href='/' className="font-semibold text-center"><img src="/images/logo.png" alt="Expert Media Solutions" className="w-30 h-full sm:h-16" /></Link>
+          <Link href='/' className="font-semibold text-center"><Image src="/images/logo.png" alt="Expert Media Solutions" width={160} height={48} /></Link>
           <MobileMenu
             links={[
               { href: '#about', label: 'About Us' },

@@ -28,8 +28,8 @@ export async function POST(req: NextRequest) {
     res.cookies.set('role', 'CLIENT', { httpOnly: true, sameSite: 'lax', path: '/', maxAge: 60 * 60 * 24 * 7 });
     res.cookies.set('userEmail', client.email || '', { httpOnly: true, sameSite: 'lax', path: '/', maxAge: 60 * 60 * 24 * 7 });
     return res;
-  } catch (error: any) {
-    const message = typeof error?.message === 'string' ? error.message : 'Server error';
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Server error';
     return NextResponse.json({ message }, { status: 500 });
   }
 }

@@ -9,7 +9,7 @@ type Props = {
 export default function AddUser({ onCreated }: Props) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [role, setRole] = useState<'ADMIN' | 'MANAGER' | 'STAFF'>('STAFF');
+  const [role, setRole] = useState<'ADMIN' | 'MANAGER' | 'STAFF' | 'CLIENT'>('STAFF');
   const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -54,10 +54,11 @@ export default function AddUser({ onCreated }: Props) {
       </div>
       <div className="grid gap-1">
         <label className="text-xs">Role</label>
-        <select value={role} onChange={(e) => setRole(e.target.value as any)} className="border rounded px-2 py-1 text-sm">
+        <select value={role} onChange={(e) => setRole(e.target.value as 'ADMIN' | 'MANAGER' | 'STAFF' | 'CLIENT')} className="border rounded px-2 py-1 text-sm">
           <option value="STAFF">Staff</option>
           <option value="MANAGER">Manager</option>
           <option value="ADMIN">Admin</option>
+          <option value="CLIENT">Client</option>
         </select>
       </div>
       <div className="grid gap-1">

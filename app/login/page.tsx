@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 
 export default function LoginPage() {
@@ -38,7 +39,7 @@ export default function LoginPage() {
     <main className="min-h-screen flex items-center justify-center px-6 py-16 bg-gradient-to-b from-red-50 to-red-100">
       <form onSubmit={onSubmit} className="w-full max-w-md border rounded-md bg-white p-6 space-y-4">
         <Link href='/' className="flex items-center justify-center mb-2">
-          <img src="/images/logo.png" alt="Expert Media Solutions" className="h-12" />
+          <Image src="/images/logo.png" alt="Expert Media Solutions" width={120} height={36} />
         </Link>
         <h1 className="text-xl font-semibold text-center">Sign in</h1>
         <div className="grid gap-1">

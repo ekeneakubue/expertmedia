@@ -12,7 +12,7 @@ type Props = {
 export default function EditUserModal({ open, onClose, onUpdated, user }: Props) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [role, setRole] = useState<'ADMIN' | 'MANAGER' | 'STAFF'>('STAFF');
+  const [role, setRole] = useState<'ADMIN' | 'MANAGER' | 'STAFF' | 'CLIENT'>('STAFF');
   const [status, setStatus] = useState<'ACTIVE' | 'INVITED' | 'SUSPENDED' | 'DISABLED'>('ACTIVE');
   const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -22,8 +22,8 @@ export default function EditUserModal({ open, onClose, onUpdated, user }: Props)
     if (user) {
       setName(user.name || '');
       setEmail(user.email || '');
-      setRole(user.role as any);
-      setStatus(user.status as any);
+      setRole(user.role as 'ADMIN' | 'MANAGER' | 'STAFF' | 'CLIENT');
+      setStatus(user.status as 'ACTIVE' | 'INVITED' | 'SUSPENDED' | 'DISABLED');
       setPassword('');
     }
   }, [user]);
@@ -35,6 +35,7 @@ export default function EditUserModal({ open, onClose, onUpdated, user }: Props)
     setSubmitting(true);
     setError(null);
     try {
+      if (!user) { setError('User not loaded'); setSubmitting(false); return; }
       const form = new FormData();
       form.append('name', name);
       form.append('email', email);
@@ -78,15 +79,16 @@ export default function EditUserModal({ open, onClose, onUpdated, user }: Props)
           </div>
           <div className="grid gap-1">
             <label className="text-xs">Role</label>
-            <select value={role} onChange={(e) => setRole(e.target.value as any)} className="border rounded px-2 py-1 text-sm">
+            <select value={role} onChange={(e) => setRole(e.target.value as 'ADMIN' | 'MANAGER' | 'STAFF' | 'CLIENT')} className="border rounded px-2 py-1 text-sm">
               <option value="STAFF">Staff</option>
               <option value="MANAGER">Manager</option>
               <option value="ADMIN">Admin</option>
+              <option value="CLIENT">Client</option>
             </select>
           </div>
           <div className="grid gap-1">
             <label className="text-xs">Status</label>
-            <select value={status} onChange={(e) => setStatus(e.target.value as any)} className="border rounded px-2 py-1 text-sm">
+            <select value={status} onChange={(e) => setStatus(e.target.value as 'ACTIVE' | 'INVITED' | 'SUSPENDED' | 'DISABLED')} className="border rounded px-2 py-1 text-sm">
               <option value="ACTIVE">Active</option>
               <option value="INVITED">Invited</option>
               <option value="SUSPENDED">Suspended</option>

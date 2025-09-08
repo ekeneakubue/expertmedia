@@ -36,6 +36,7 @@ export default function EditClientModal({ open, onClose, onUpdated, client }: Pr
     setSaving(true);
     setError(null);
     try {
+      if (!client) { setError('Client not loaded'); setSaving(false); return; }
       const res = await fetch(`/api/clients/${client.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },

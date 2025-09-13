@@ -13,8 +13,9 @@ export async function GET(_req: NextRequest, context: { params: Promise<{ id: st
   if (!file) return new NextResponse('Not found', { status: 404 });
   const data = await fs.readFile(path.join(UPLOAD_DIR, file));
   const name = file.includes('__') ? file.split('__').slice(1).join('__') : file;
-  const blob = new Blob([data]);
-  return new NextResponse(blob, {
+  // Convert Node Buffer to a standards-compliant Uint8Array for Response body
+  const body = new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
+  return new NextResponse(body, {
     headers: {
       'Content-Type': 'application/octet-stream',
       'Content-Disposition': `attachment; filename="${encodeURIComponent(name)}"`,

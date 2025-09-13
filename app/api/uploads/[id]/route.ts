@@ -13,12 +13,10 @@ export async function GET(_req: NextRequest, context: { params: Promise<{ id: st
   if (!file) return new NextResponse('Not found', { status: 404 });
   const data = await fs.readFile(path.join(UPLOAD_DIR, file));
   const name = file.includes('__') ? file.split('__').slice(1).join('__') : file;
-  // Convert Node Buffer to a plain ArrayBuffer for NextResponse body
-  const arrayBuffer = data.buffer.slice(
-    data.byteOffset,
-    data.byteOffset + data.byteLength
-  );
-  return new NextResponse(arrayBuffer, {
+  // Build a Blob from a Uint8Array (BodyInit-compatible)
+  const uint8 = new Uint8Array(data);
+  const blob = new Blob([uint8]);
+  return new NextResponse(blob, {
     headers: {
       'Content-Type': 'application/octet-stream',
       'Content-Disposition': `attachment; filename="${encodeURIComponent(name)}"`,

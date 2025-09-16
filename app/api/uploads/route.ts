@@ -54,7 +54,14 @@ export async function GET(req: NextRequest) {
   const visible = role === 'ADMIN'
     ? (tab === 'unpaid' ? files.filter((f) => !f.paid) : files.filter((f) => !!f.paid))
     : files.filter((f) => (f.email || '').toLowerCase() === userEmail && userEmail);
-  const sanitized = visible.map(({ email, ...rest }) => rest);
+  const sanitized = visible.map((f) => ({
+    id: f.id,
+    name: f.name,
+    size: f.size,
+    createdAt: f.createdAt,
+    paid: f.paid,
+    clientName: f.clientName,
+  }));
   return NextResponse.json(sanitized);
 }
 

@@ -5,14 +5,27 @@ import path from 'path'
 
 export const runtime = 'nodejs'
 
+type PaystackVerifyData = {
+  status: 'success' | string
+  reference: string
+  amount: number
+  metadata?: { fileId?: string } | null
+}
+
+type PaystackVerifyResponse = {
+  status: boolean
+  message?: string
+  data?: PaystackVerifyData
+}
+
 async function verifyPaystack(reference: string, secret: string) {
   const res = await fetch(`https://api.paystack.co/transaction/verify/${encodeURIComponent(reference)}`, {
     headers: { Authorization: `Bearer ${secret}` },
     cache: 'no-store',
   })
-  const json = await res.json() as any
-  if (!res.ok || json.status !== true) return { ok: false, message: json.message || 'Verification failed' }
-  return { ok: true, data: json.data }
+  const json = (await res.json()) as PaystackVerifyResponse
+  if (!res.ok || json.status !== true) return { ok: false as const, message: json.message || 'Verification failed' }
+  return { ok: true as const, data: json.data }
 }
 
 export async function GET(req: NextRequest) {
@@ -26,7 +39,7 @@ export async function GET(req: NextRequest) {
     if (v.ok && v.data?.status === 'success') {
       try { await prisma.payment.update({ where: { reference }, data: { status: 'SUCCESS' } }) } catch {}
       if (!fileId) {
-        const meta = v.data?.metadata as { fileId?: string } | undefined
+        const meta = v.data?.metadata
         if (meta?.fileId) fileId = String(meta.fileId)
       }
       // Best-effort: mark local upload metadata as paid
@@ -34,7 +47,7 @@ export async function GET(req: NextRequest) {
         try {
           const uploadDir = path.join(process.cwd(), 'uploads')
           const metaPath = path.join(uploadDir, `${fileId}.json`)
-          let metaObj: any = {}
+          let metaObj: Record<string, unknown> = {}
           try {
             const existing = await fs.readFile(metaPath, 'utf8')
             metaObj = JSON.parse(existing)

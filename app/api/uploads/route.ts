@@ -21,7 +21,16 @@ export async function GET(req: NextRequest) {
   const url = new URL(req.url);
   const tab = url.searchParams.get('tab') || '';
   const entries = await fs.readdir(UPLOAD_DIR).catch(() => [] as string[]);
-  const files = await Promise.all(entries.map(async (name) => {
+  type UploadListing = {
+    id: string
+    name: string
+    size: number
+    createdAt: string
+    paid: boolean
+    clientName?: string
+    email?: string
+  }
+  const files = await Promise.all(entries.map(async (name): Promise<UploadListing> => {
     const p = path.join(UPLOAD_DIR, name);
     const stat = await fs.stat(p);
     const [uuid, ...rest] = name.split('__');
@@ -43,8 +52,8 @@ export async function GET(req: NextRequest) {
     return { id: uuid, name: display, size: stat.size, createdAt: stat.birthtime.toISOString(), paid, clientName, email: metaEmail } as const;
   }));
   const visible = role === 'ADMIN'
-    ? (tab === 'unpaid' ? files.filter((f: any) => !f.paid) : files.filter((f: any) => !!f.paid))
-    : files.filter((f: any) => (f.email || '').toLowerCase() === userEmail && userEmail);
+    ? (tab === 'unpaid' ? files.filter((f) => !f.paid) : files.filter((f) => !!f.paid))
+    : files.filter((f) => (f.email || '').toLowerCase() === userEmail && userEmail);
   const sanitized = visible.map(({ email, ...rest }) => rest);
   return NextResponse.json(sanitized);
 }

@@ -50,7 +50,12 @@ export async function POST(req: NextRequest) {
       }),
     })
 
-    const json = await res.json() as any
+    type InitJson = {
+      status: boolean
+      message?: string
+      data?: { authorization_url: string; reference: string }
+    }
+    const json = (await res.json()) as InitJson
     if (!res.ok || json.status !== true) {
       return NextResponse.json({ message: json.message || 'Failed to initialize payment' }, { status: 502 })
     }

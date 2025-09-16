@@ -273,7 +273,7 @@ function ServiceCard({ title, points }: { title: string; points: string[] }) {
   );
 }
 
-function QuoteCard({ quote, author }: { quote: string; author: string }) {
+export function QuoteCard({ quote, author }: { quote: string; author: string }) {
   return (
     <div className="border rounded-md p-4 bg-white/70 dark:bg-neutral-900/70">
       <p className="text-sm italic mb-2">“{quote}”</p>
@@ -282,7 +282,7 @@ function QuoteCard({ quote, author }: { quote: string; author: string }) {
   );
 }
 
-function Stat({ value, label }: { value: string; label: string }) {
+export function Stat({ value, label }: { value: string; label: string }) {
   return (
     <div className="border rounded-md p-4 bg-white dark:bg-neutral-950">
       <div className="text-2xl font-semibold">{value}</div>

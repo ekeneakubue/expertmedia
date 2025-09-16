@@ -29,29 +29,7 @@ export default function AdminUsersPage() {
     loadUsers();
   }, []);
 
-  async function addUser() {
-    const email = prompt("Email?");
-    if (!email) return;
-    const name = prompt("Name?") || email;
-    const password = prompt("Temporary password? (min 6 chars)") || "changeme123";
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await fetch("/api/users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, name, password, role: "STAFF" }),
-      });
-      if (!res.ok) {
-        const { message } = await res.json().catch(() => ({ message: "Server error" }));
-        setError(message || "Failed to create user");
-      } else {
-        await loadUsers();
-      }
-    } finally {
-      setLoading(false);
-    }
-  }
+  // addUser handled by AddUserModal; remove unused local version
 
   return (
     <div className="space-y-6 overflow-y-scroll px-8 py-8">

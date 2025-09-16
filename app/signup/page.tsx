@@ -51,6 +51,7 @@ export default function SignupPage() {
     <main className="min-h-screen flex items-center justify-center px-6 py-16 bg-gradient-to-b from-red-50 to-red-100">
       <form onSubmit={onSubmit} className="w-full max-w-md border rounded-md bg-white p-6 space-y-4">
         <div className="flex items-center justify-center mb-2">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/logo.png" alt="Expert Media Solutions" className="h-12" />
         </div>
         <h1 className="text-xl font-semibold text-center">Create an account</h1>

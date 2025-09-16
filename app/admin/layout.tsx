@@ -1,4 +1,4 @@
-import Link from "next/link";
+// Link import removed: not used in this layout
 import Image from "next/image";
 import { ReactNode } from "react";
 import { cookies } from "next/headers";

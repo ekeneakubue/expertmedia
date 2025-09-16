@@ -6,9 +6,7 @@ export const runtime = 'nodejs'
 
 const HERO_DIR = path.join(process.cwd(), 'uploads', 'hero')
 
-function filePath(id: string) {
-  return path.join(HERO_DIR, `${id}`)
-}
+// filePath helper removed (unused)
 
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params

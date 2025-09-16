@@ -52,7 +52,7 @@ export function AdminNav({ role: roleProp }: { role?: string }) {
         setRole(cookie ? decodeURIComponent(cookie.split('=')[1]) : null);
       } catch {}
     }
-  }, []);
+  }, [roleProp]);
 
   const effectiveRole = (roleProp ?? role) || 'ADMIN';
   const roleLinks = effectiveRole === 'CLIENT' ? clientLinks : (effectiveRole === 'MANAGER' || effectiveRole === 'STAFF') ? staffLinks : adminLinks;

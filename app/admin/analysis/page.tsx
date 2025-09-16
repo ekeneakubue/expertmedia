@@ -31,6 +31,8 @@ export default function AdminAnalysisPage() {
 
   useEffect(() => {
     refresh();
+    // We intentionally call once on mount; refresh does not depend on changing values here
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

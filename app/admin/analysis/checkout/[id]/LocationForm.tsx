@@ -55,7 +55,7 @@ export default function LocationForm({ fileId, amount }: Props) {
         }
         const { authorizationUrl } = await res.json();
         window.location.href = authorizationUrl;
-      } catch (_err) {
+      } catch {
         setError('Network error');
         setLoading(false);
       }

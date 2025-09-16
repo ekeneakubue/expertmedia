@@ -38,16 +38,18 @@ export async function GET(req: NextRequest) {
     let paid = false;
     let clientName: string | undefined;
     let metaEmail: string | undefined;
+    let metaPaid: boolean | undefined;
     // read optional metadata file alongside upload
     try {
       const metaRaw = await fs.readFile(path.join(UPLOAD_DIR, `${uuid}.json`), 'utf8');
-      const meta = JSON.parse(metaRaw) as { clientName?: string; email?: string };
+      const meta = JSON.parse(metaRaw) as { clientName?: string; email?: string; paid?: boolean };
       clientName = meta.clientName || undefined;
       metaEmail = meta.email || undefined;
+      metaPaid = meta.paid;
     } catch {}
     try {
       const payment = await prisma.payment.findFirst({ where: { fileId: uuid, status: 'SUCCESS' }, select: { id: true } });
-      paid = !!payment;
+      paid = !!payment || !!metaPaid;
     } catch {}
     return { id: uuid, name: display, size: stat.size, createdAt: stat.birthtime.toISOString(), paid, clientName, email: metaEmail } as const;
   }));

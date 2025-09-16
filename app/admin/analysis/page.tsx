@@ -1,23 +1,59 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
-type UploadedFile = { id: string; name: string; size: number; createdAt: string };
+type UploadedFile = { id: string; name: string; size: number; createdAt: string; paid?: boolean; clientName?: string };
 
 export default function AdminAnalysisPage() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [files, setFiles] = useState<UploadedFile[]>([]);
+  const [filesLoading, setFilesLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [selectedFileName, setSelectedFileName] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [processingId, setProcessingId] = useState<string | null>(null);
+  const [paidFileIds, setPaidFileIds] = useState<Record<string, boolean>>({});
+  const [role, setRole] = useState<string | null>(null);
 
-  async function refresh() {
-    const res = await fetch('/api/uploads');
-    if (res.ok) setFiles(await res.json());
+  async function refresh(tab?: 'paid' | 'unpaid') {
+    setFilesLoading(true);
+    try {
+      const qp = tab && role === 'ADMIN' ? `?tab=${tab}` : '';
+      const res = await fetch(`/api/uploads${qp}`);
+      if (res.ok) setFiles(await res.json());
+    } finally {
+      setFilesLoading(false);
+    }
   }
 
   useEffect(() => {
     refresh();
   }, []);
+
+  useEffect(() => {
+    fetch('/api/me').then(async (r) => {
+      if (r.ok) {
+        const { role } = await r.json();
+        setRole(role ?? null);
+      }
+    }).catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    const paid = searchParams.get('paid');
+    const fileId = searchParams.get('fileId');
+    if (paid && fileId) {
+      setPaidFileIds((p) => ({ ...p, [fileId]: true }));
+      // Clean URL
+      const url = new URL(window.location.href);
+      url.searchParams.delete('paid');
+      url.searchParams.delete('fileId');
+      window.history.replaceState({}, '', url.toString());
+    }
+  }, [searchParams]);
 
   async function onUpload(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -42,6 +78,23 @@ export default function AdminAnalysisPage() {
     } finally {
       setUploading(false);
     }
+  }
+
+  async function onProcess(id: string) {
+    setProcessingId(id);
+    try {
+      router.push(`/admin/analysis/checkout/${id}`);
+    } finally {
+      setProcessingId(null);
+    }
+  }
+
+  async function onDelete(id: string) {
+    if (!confirm('Delete this file?')) return;
+    try {
+      const res = await fetch(`/api/uploads/${id}`, { method: 'DELETE' });
+      if (res.ok) await refresh();
+    } catch {}
   }
 
   return (
@@ -79,26 +132,66 @@ export default function AdminAnalysisPage() {
       </form>
 
       <div className="border rounded-md overflow-hidden bg-white dark:bg-neutral-900">
+        {role === 'ADMIN' && (
+          <div className="flex items-center gap-3 px-3 py-2 border-b text-xs">
+            <button onClick={() => refresh('paid')} className="rounded border px-2 py-1">Paid</button>
+            <button onClick={() => refresh('unpaid')} className="rounded border px-2 py-1">Unpaid</button>
+          </div>
+        )}
         <table className="w-full text-sm">
           <thead className="bg-gray-50 dark:bg-neutral-800 text-left">
             <tr>
               <th className="px-3 py-2">File</th>
               <th className="px-3 py-2">Size</th>
+              <th className="px-3 py-2">Client</th>
               <th className="px-3 py-2">Uploaded</th>
-              <th className="px-3 py-2 w-0"></th>
+              <th className="px-3 py-2 w-0">Action</th>
             </tr>
           </thead>
           <tbody>
-            {files.length === 0 ? (
-              <tr><td className="px-3 py-4" colSpan={4}>No uploads yet.</td></tr>
+            {filesLoading ? (
+              <tr>
+                <td className="px-3 py-4" colSpan={5}>
+                  Fetching files...
+                  <svg
+                    className="inline-block ml-2 h-4 w-4 animate-spin text-gray-500 align-[-2px]"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                  </svg>
+                </td>
+              </tr>
+            ) : files.length === 0 ? (
+              <tr><td className="px-3 py-4" colSpan={5}>No upload yet.</td></tr>
             ) : (
               files.map(f => (
                 <tr key={f.id}>
                   <td className="px-3 py-2">{f.name}</td>
                   <td className="px-3 py-2">{(f.size/1024).toFixed(1)} KB</td>
+                  <td className="px-3 py-2">{f.clientName || '—'}</td>
                   <td className="px-3 py-2">{new Date(f.createdAt).toLocaleString()}</td>
-                  <td className="px-3 py-2 text-right">
-                    <a className="px-2 py-1 text-xs rounded border" href={`/api/uploads/${f.id}`}>Download</a>
+                  <td className="px-3 py-2 text-right space-x-2 flex">
+                    {paidFileIds[f.id] || f.paid ? (
+                      <span className="px-2 py-1 text-xs rounded border bg-green-600 text-white">Paid</span>
+                    ) : role === 'CLIENT' ? (
+                      <button
+                        onClick={() => onProcess(f.id)}
+                        disabled={processingId === f.id}
+                        className="px-2 py-1 text-xs rounded border bg-red-500 text-white hover:bg-red-600 disabled:opacity-50"
+                      >
+                        {processingId === f.id ? 'Processing...' : 'Process'}
+                      </button>
+                    ) : null}
+                    {role && role !== 'CLIENT' && (
+                      <>
+                        <a className="px-2 py-1 text-xs rounded border" href={`/api/uploads/${f.id}`}>Download</a>
+                        <button onClick={() => onDelete(f.id)} className="px-2 py-1 text-xs rounded border text-red-600">Delete</button>
+                      </>
+                    )}
                   </td>
                 </tr>
               ))
@@ -109,5 +202,3 @@ export default function AdminAnalysisPage() {
     </div>
   );
 }
-
-

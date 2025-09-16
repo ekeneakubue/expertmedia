@@ -24,4 +24,18 @@ export async function GET(_req: NextRequest, context: { params: Promise<{ id: st
   });
 }
 
+export async function DELETE(_req: NextRequest, context: { params: Promise<{ id: string }> }) {
+  const { id } = await context.params;
+  const entries = await fs.readdir(UPLOAD_DIR).catch(() => [] as string[]);
+  const file = entries.find((e) => e.startsWith(id + '__') || e === id);
+  if (!file) return NextResponse.json({ message: 'Not found' }, { status: 404 });
+  try {
+    await fs.unlink(path.join(UPLOAD_DIR, file));
+    return NextResponse.json({ ok: true });
+  } catch (e: unknown) {
+    const message = e instanceof Error ? e.message : 'Server error';
+    return NextResponse.json({ message }, { status: 500 });
+  }
+}
+
 

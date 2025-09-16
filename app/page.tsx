@@ -1,8 +1,23 @@
 import Link from "next/link";
 import Image from "next/image";
 import { MobileMenu } from "./_components/MobileMenu";
+import { HeroSlider } from "./_components/HeroSlider";
 
-export default function Home() {
+export default async function Home() {
+  // Load hero images from admin-managed storage; fall back to defaults
+  let heroImages: string[] = [];
+  try {
+    const base = process.env.NEXT_PUBLIC_BASE_URL?.replace(/\/$/, '') || '';
+    const url = base ? `${base}/api/hero` : '/api/hero';
+    const res = await fetch(url, { cache: 'no-store' });
+    if (res.ok) {
+      const items = (await res.json()) as { id: string }[];
+      heroImages = items.map((it) => `/api/hero/${it.id}`);
+    }
+  } catch {}
+  if (heroImages.length === 0) {
+    heroImages = ["/images/hero-1.jpg", "/images/hero-2.jpg", "/images/hero-3.jpg"];
+  }
   return (
     <div className="min-h-screen">
       {/* Header */}
@@ -34,43 +49,32 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="relative overflow-hidden px-6 sm:px-10 py-20 bg-gradient-to-b from-red-50 to-red-100 dark:from-red-950 dark:to-red-900">
-        <div className="hero-sliding-banner" />
-        <div className="relative max-w-6xl mx-auto grid md:grid-cols-2 items-center gap-10">
-          <div className="hidden md:block">
-            <div className="h-[340px] bg-[url('/window.svg')] bg-no-repeat bg-left bg-contain opacity-70" />
-          </div>
-          <div className="text-left md:text-left">
-            <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight">
-              Welcome to ExpertMediaSolutions - Your Trusted IT Solutions Partner
-            </h1>
-            <p className="mt-4 text-gray-700 dark:text-gray-200 text-base sm:text-lg max-w-2xl">
-              Transforming your business with innovative IT solutions in today’s fast-paced digital landscape, having the right technology solutions is essential for success.
-            </p>
-            <div className="pt-6">
-              <Link href="#contact" className="inline-flex items-center justify-center rounded-md bg-red-500 text-white px-6 py-3 text-sm font-medium hover:bg-red-600">
-                Find Your Solution
-              </Link>
-            </div>
-          </div>
+      {/* Hero Slider */}
+      <HeroSlider images={heroImages}>
+        <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-white">
+          Welcome to ExpertMediaSolutions
+        </h1>
+        <p className="mt-4 text-gray-200 text-base sm:text-lg">
+          Your trusted IT solutions partner. We help you transform operations with automation, analytics, enablement, and education tailored to your goals.
+        </p>
+        <div className="pt-6">
+          <Link href="#contact" className="inline-flex items-center justify-center rounded-md bg-red-500 text-white px-6 py-3 text-sm font-medium hover:bg-red-600">
+            Find Your Solution
+          </Link>
         </div>
-      </section>
+      </HeroSlider>
 
       {/* Why Choose Expert Media */}
-      <section id="why" className="px-6 sm:px-10 py-16 bg-white dark:bg-neutral-950">
-        <div className="max-w-6xl mx-auto grid gap-3 text-center sm:text-left">
+      <section id="why" className="px-16sm:px-10 py-16 flex gap-[4rem] px-[10rem] dark:bg-neutral-950">
+        <div className="max-w-6xl grid gap-3 text-center sm:text-left">
           <h2 className="text-2xl font-semibold">Why Choose Expert Media?</h2>
           <p className="text-gray-700 dark:text-gray-200 max-w-3xl mx-auto sm:mx-0">
             We deliver tailored IT solutions that help businesses thrive—combining automation, analytics, enablement, and
             education into one cohesive approach.
           </p>
         </div>
-      </section>
 
-      {/* Who we are */}
-      <section id="about" className="px-6 sm:px-10 py-16">
-        <div className="max-w-6xl mx-auto grid gap-3">
+        <div className="max-w-6xl grid gap-3">
           <h2 className="text-2xl font-semibold">Who we are?</h2>
           <p className="text-gray-700 dark:text-gray-200 max-w-3xl">
             A team of passionate IT professionals focused on turning technology into business outcomes. Our mission is to
@@ -78,6 +82,8 @@ export default function Home() {
           </p>
         </div>
       </section>
+
+      
 
       {/* Our Expertise */}
       <section id="expertise" className="px-6 sm:px-10 py-16 bg-white dark:bg-neutral-950">

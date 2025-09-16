@@ -27,6 +27,7 @@ const staffLinks = [
 const clientLinks = [
   { href: '/admin', label: 'Overview' },
   { href: '/admin/tickets', label: 'Tickets' },
+  { href: '/admin/analysis', label: 'Data collection' },
   { href: '/admin/settings', label: 'Settings' },
 ];
 

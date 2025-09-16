@@ -7,6 +7,7 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 // =====================
@@ -195,4 +196,25 @@ model PasswordResetToken {
 
   @@index([userId])
   @@index([expiresAt])
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+model Payment {
+  id               String         @id @default(cuid())
+  fileId           String         // ID of uploaded file (UUID prefix)
+  amount           Int            // in kobo
+  reference        String         @unique
+  status           PaymentStatus  @default(PENDING)
+  state            String?
+  institutionType  String?
+  institutionName  String?
+  address          String?
+  createdAt        DateTime       @default(now())
+
+  @@index([fileId])
 }

@@ -44,6 +44,20 @@ export default function AdminAnalysisPage() {
     }).catch(() => {});
   }, []);
 
+  // Re-fetch when role becomes available (after login) and on focus/visibility changes
+  useEffect(() => {
+    if (!role) return;
+    refresh();
+    const onFocus = () => refresh();
+    const onVisibility = () => { if (document.visibilityState === 'visible') refresh(); };
+    window.addEventListener('focus', onFocus);
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => {
+      window.removeEventListener('focus', onFocus);
+      document.removeEventListener('visibilitychange', onVisibility);
+    };
+  }, [role]);
+
   useEffect(() => {
     const paid = searchParams.get('paid');
     const fileId = searchParams.get('fileId');

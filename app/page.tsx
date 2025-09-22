@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MobileMenu } from "./_components/MobileMenu";
 import { HeroSlider } from "./_components/HeroSlider";
+import { ScrollToTop } from "./_components/ScrollToTop";
 
 export default async function Home() {
   // Load hero images from admin-managed storage; fall back to defaults
@@ -52,7 +53,7 @@ export default async function Home() {
       {/* Hero Slider */}
       <HeroSlider images={heroImages}>
         <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-white">
-          Welcome to ExpertMediaSolutions
+          Welcome to Expert Media Solutions
         </h1>
         <p className="mt-4 text-gray-200 text-base sm:text-lg">
           Your trusted IT solutions partner. We help you transform operations with automation, analytics, enablement, and education tailored to your goals.
@@ -247,6 +248,7 @@ export default async function Home() {
           <Link href="/login" className="hover:underline">Admin</Link>
         </div>
       </footer>
+      <ScrollToTop />
     </div>
   );
 }

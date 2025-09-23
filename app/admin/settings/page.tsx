@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-type HeroImage = { id: string; name: string; size: number; createdAt: string };
+type HeroImage = { url: string; size?: number; uploadedAt?: string };
 
 export default function AdminSettingsPage() {
   const [images, setImages] = useState<HeroImage[]>([]);
@@ -49,10 +49,10 @@ export default function AdminSettingsPage() {
     }
   }
 
-  async function onDelete(id: string) {
+  async function onDelete(url: string) {
     if (!confirm('Delete this image?')) return;
     try {
-      const res = await fetch(`/api/hero/${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/hero/[id]?url=${encodeURIComponent(url)}`, { method: 'DELETE' });
       if (res.ok) await refresh();
     } catch {}
   }
@@ -116,17 +116,17 @@ export default function AdminSettingsPage() {
                   <tr><td className="px-3 py-4" colSpan={4}>No images yet.</td></tr>
                 ) : (
                   images.map(img => (
-                    <tr key={img.id}>
+                    <tr key={img.url}>
                       <td className="px-3 py-2">
                         <div className="flex items-center gap-3">
-                          <img src={`/api/hero/${img.id}`} alt={img.name} className="w-24 h-14 object-cover rounded border" />
-                          <div className="truncate max-w-[300px]" title={img.name}>{img.name}</div>
+                          <img src={img.url} alt="Hero" className="w-24 h-14 object-cover rounded border" />
+                          <div className="truncate max-w-[300px]" title={img.url}>{img.url}</div>
                         </div>
                       </td>
-                      <td className="px-3 py-2">{(img.size/1024).toFixed(1)} KB</td>
-                      <td className="px-3 py-2">{new Date(img.createdAt).toLocaleString()}</td>
+                      <td className="px-3 py-2">{img.size ? (img.size/1024).toFixed(1) + ' KB' : '—'}</td>
+                      <td className="px-3 py-2">{img.uploadedAt ? new Date(img.uploadedAt).toLocaleString() : '—'}</td>
                       <td className="px-3 py-2 text-right">
-                        <button onClick={() => onDelete(img.id)} className="px-2 py-1 text-xs rounded border text-red-600">Delete</button>
+                        <button onClick={() => onDelete(img.url)} className="px-2 py-1 text-xs rounded border text-red-600">Delete</button>
                       </td>
                     </tr>
                   ))

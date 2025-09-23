@@ -8,7 +8,7 @@ export async function GET() {
   const { blobs } = await list({ prefix: 'hero/' })
   const images = blobs
     .filter((b) => (b.contentType || '').startsWith('image/'))
-    .map((b) => ({ url: b.url }))
+    .map((b) => ({ url: b.url, size: b.size, uploadedAt: (b as any).uploadedAt ? new Date((b as any).uploadedAt).toISOString() : '' }))
   return NextResponse.json(images)
 }
 

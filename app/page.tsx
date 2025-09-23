@@ -138,6 +138,7 @@ export default async function Home() {
       <section id="services" className="px-6 sm:px-10 lg:px-20 py-16 min-h-[60vh] bg-gray-100 dark:bg-neutral-950">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-2xl font-semibold mb-6 border-l-8 border-solid border-red-500 px-4">Our Services</h2>
+          <p>We offer a comprehensive suite of services tailored to meet the unique needs of our clients. </p>
           <br /><br />
           <div>
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-4">
@@ -198,8 +199,7 @@ export default async function Home() {
                     designed to meet your needs.
                   </p>
                 </div>
-              </div>              
-              
+              </div>                
             </div>
             <div className="flex justify-center mt-4">            
               <Link href="/services" className="px-6 mt-8 bg-red-500 rounded py-2 text-gray-50 w-full sm:w-auto text-center">View More ...</Link>

@@ -70,7 +70,7 @@ export default async function Home() {
       </HeroSlider>
 
       {/* About Expert Media */}
-      <section id="about" className="px-16sm:px-10 py-16 min-h-[100vh] px-[10rem]">
+      <section id="about" className="px-6 sm:px-10 lg:px-20 py-16 min-h-[60vh]">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-2xl font-semibold mb-6 border-l-8 border-solid border-red-500 px-4">About Us</h2>
           <p>
@@ -88,7 +88,7 @@ export default async function Home() {
 
           <strong className="text-[20px]">Our team specializes in a wide range of IT solutions, including;</strong>
           <br /><br />
-          <div className="grid grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="flex gap-4 items-start">
               <div className="text-red-500 text-[30px]"><GrStatusGood /></div>
               <p>
@@ -133,12 +133,12 @@ export default async function Home() {
       
 
       {/* Our Services */}
-      <section id="services" className="px-6 sm:px-10 py-16 min-h-[100vh] bg-gray-100 dark:bg-neutral-950">
+      <section id="services" className="px-6 sm:px-10 lg:px-20 py-16 min-h-[60vh] bg-gray-100 dark:bg-neutral-950">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-2xl font-semibold mb-6 border-l-8 border-solid border-red-500 px-4">Our Services</h2>
           <br /><br />
           <div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
               <div className="bg-white rounded-md p-[2rem] gap-2">
                 <span className="text-red-500 text-[50px] text-center bg-green-500 mb-4">
                   <BsRobot className="mx-auto mb-8"/>
@@ -206,7 +206,7 @@ export default async function Home() {
               
             </div>
             <div className="flex justify-center mt-4">            
-              <button className="px-4 mt-[2rem] bg-red-500 rounded py-2 text-gray-50 w-[20%] mx-auto">View More ...</button>
+              <button className="px-6 mt-8 bg-red-500 rounded py-2 text-gray-50 w-full sm:w-auto">View More ...</button>
             </div>
           </div>
         </div>
@@ -214,11 +214,11 @@ export default async function Home() {
      
 
       {/* Our Team */}
-      <section id="team" className="px-6 min-h-[100vh] sm:px-10 py-16">
+      <section id="team" className="px-6 sm:px-10 lg:px-20 py-16">
         <div className="max-w-6xl mx-auto grid gap-3">
           <h2 className="text-2xl font-semibold mb-6 border-l-8 border-solid border-red-500 px-4">Our Team</h2>
           <p className="text-gray-700 dark:text-gray-200 text-sm">Meet the professionals behind our solutions.</p>
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div>
               <div><Image src="/images/team/gabriel.png" alt="Gabriel" width={300} height={300} className="w-full h-auto" /></div>              
             </div>
@@ -240,11 +240,11 @@ export default async function Home() {
       </section>
 
        {/* Board Members */}
-       <section id="board" className="px-6 min-h-[100vh] bg-gray-100 sm:px-10 py-16">
+      <section id="board" className="px-6 sm:px-10 lg:px-20 py-16 bg-gray-100">
         <div className="max-w-6xl mx-auto grid gap-3">
           <h2 className="text-2xl font-semibold mb-6 border-l-8 border-solid border-red-500 px-4">Board Members</h2>
           <p className="text-gray-700 dark:text-gray-200 text-sm">Guiding our mission and long-term strategy.</p>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <div>
               <div><Image src="/images/board/chukwuma.png" alt="Chukwuma" width={380} height={420} className="w-full h-auto" /></div>              
             </div>
@@ -263,11 +263,11 @@ export default async function Home() {
       
       
       {/* Gallery */}
-      <section id="gallery" className="px-6 min-h-[100vh] sm:px-10 py-16 dark:bg-neutral-950">
+      <section id="gallery" className="px-6 sm:px-10 lg:px-20 py-16 dark:bg-neutral-950">
         <div className="max-w-6xl mx-auto grid gap-3">
           <h2 className="text-2xl font-semibold mb-6 border-l-8 border-solid border-red-500 px-4">Gallery</h2>
           <p className="text-gray-700 dark:text-gray-200 text-sm">Snapshots from projects, events, and community work.</p>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             <Image src="/images/gallery/stc1.jpg" alt="Gallery image 1" width={600} height={400} className="w-full h-auto" />
             <Image src="/images/gallery/stc2.jpg" alt="Gallery image 2" width={600} height={400} className="w-full h-auto" />
             <Image src="/images/gallery/stc3.jpg" alt="Gallery image 3" width={600} height={400} className="w-full h-auto" />
@@ -278,20 +278,20 @@ export default async function Home() {
             <Image src="/images/gallery/stc8.jpg" alt="Gallery image 8" width={600} height={400} className="w-full h-auto" />
             <Image src="/images/gallery/stc9.jpg" alt="Gallery image 9" width={600} height={400} className="w-full h-auto" />
           </div>
-          <button className="px-4 mt-[2rem] bg-red-500 rounded py-2 text-gray-50 w-[20%] mx-auto ">View More ...</button>
+          <button className="px-6 mt-8 bg-red-500 rounded py-2 text-gray-50 w-full sm:w-auto ">View More ...</button>
         </div>
       </section>
 
       
 
       {/* Our Contacts */}
-      <section id="contacts" className="px-16sm:px-10 py-16 min-h-[100vh] bg-gray-100 px-[10rem]">
+      <section id="contacts" className="px-6 sm:px-10 lg:px-20 py-16 bg-gray-100">
         <h2 className="text-2xl font-semibold mb-6 border-l-8 border-solid border-red-500 px-4">Contact Us</h2>
         <p className="text-gray-700 dark:text-gray-200 text-sm">
           Let’s plan your next milestone
         </p><br /><br />
         <div>
-          <div className="grid grid-cols-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div className="bg-white rounded-md py-[4rem] flex gap-2 px-[2rem]">
               <span className="text-green-800 text-[50px]">
                 <FaPhoneAlt />

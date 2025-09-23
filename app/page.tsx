@@ -138,14 +138,14 @@ export default async function Home() {
           <h2 className="text-2xl font-semibold mb-6 border-l-8 border-solid border-red-500 px-4">Our Services</h2>
           <br /><br />
           <div>
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-4">
               <div className="bg-white rounded-md p-[2rem] gap-2">
                 <span className="text-red-500 text-[50px] text-center bg-green-500 mb-4">
                   <BsRobot className="mx-auto mb-8"/>
                 </span> 
                 <div>
                   <strong className="text-[20px]">RobEMS</strong>
-                  <p className="text-justify">
+                  <p className="text-sm sm:text-base leading-relaxed text-gray-700 text-left">
                     RobEMS is dedicated to advancing the field of robotics through innovative solutions and 
                     cutting-edge technology. With RobEMS, we specialize in designing and implementing robotic 
                     systems tailored to meet the unique needs of our clients. Our team of experts combines 
@@ -161,7 +161,7 @@ export default async function Home() {
                 </span> 
                 <div>
                   <strong className="text-[20px]">RobEMS</strong>
-                  <p className="text-justify">
+                  <p className="text-sm sm:text-base leading-relaxed text-gray-700 text-left">
                     RobEMS is dedicated to advancing the field of robotics through innovative solutions and 
                     cutting-edge technology. With RobEMS, we specialize in designing and implementing robotic 
                     systems tailored to meet the unique needs of our clients. Our team of experts combines 
@@ -177,7 +177,7 @@ export default async function Home() {
                 </span> 
                 <div>
                   <strong className="text-[20px]">RobEMS</strong>
-                  <p className="text-justify">
+                  <p className="text-sm sm:text-base leading-relaxed text-gray-700 text-left">
                     RobEMS is dedicated to advancing the field of robotics through innovative solutions and 
                     cutting-edge technology. With RobEMS, we specialize in designing and implementing robotic 
                     systems tailored to meet the unique needs of our clients. Our team of experts combines 
@@ -193,7 +193,7 @@ export default async function Home() {
                 </span> 
                 <div>
                   <strong className="text-[20px]">RobEMS</strong>
-                  <p className="text-justify">
+                  <p className="text-sm sm:text-base leading-relaxed text-gray-700 text-left">
                     RobEMS is dedicated to advancing the field of robotics through innovative solutions and 
                     cutting-edge technology. With RobEMS, we specialize in designing and implementing robotic 
                     systems tailored to meet the unique needs of our clients. Our team of experts combines 
@@ -285,7 +285,7 @@ export default async function Home() {
       
 
       {/* Our Contacts */}
-      <section id="contacts" className="px-6 sm:px-10 lg:px-20 py-16 bg-gray-100">
+      <section id="contacts" className="px-6 sm:px-10 lg:px-[11rem] py-16 bg-gray-100">
         <h2 className="text-2xl font-semibold mb-6 border-l-8 border-solid border-red-500 px-4">Contact Us</h2>
         <p className="text-gray-700 dark:text-gray-200 text-sm">
           Let’s plan your next milestone

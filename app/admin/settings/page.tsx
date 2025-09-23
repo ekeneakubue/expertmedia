@@ -42,7 +42,7 @@ export default function AdminSettingsPage() {
         setSelectedFileName('');
         await refresh();
       }
-    } catch (err) {
+    } catch {
       setError('Network error');
     } finally {
       setUploading(false);

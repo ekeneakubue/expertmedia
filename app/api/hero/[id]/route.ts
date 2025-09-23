@@ -17,7 +17,9 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
   const data = await fs.readFile(p)
   const ext = path.extname(name).toLowerCase()
   const contentType = ext === '.png' ? 'image/png' : ext === '.webp' ? 'image/webp' : 'image/jpeg'
-  return new NextResponse(data, { headers: { 'Content-Type': contentType, 'Cache-Control': 'public, max-age=3600' } })
+  // Convert Node.js Buffer to a web-compatible body type
+  const bytes = new Uint8Array(data)
+  return new NextResponse(bytes, { headers: { 'Content-Type': contentType, 'Cache-Control': 'public, max-age=3600' } })
 }
 
 export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {

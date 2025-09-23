@@ -264,15 +264,15 @@ export default async function Home() {
           <h2 className="text-2xl font-semibold mb-6 border-l-8 border-solid border-red-500 px-4">Gallery</h2>
           <p className="text-gray-700 dark:text-gray-200 text-sm">Snapshots from projects, events, and community work.</p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            <Image src="/images/gallery/stc1.jpg" alt="Gallery image 1" width={600} height={400} className="w-full h-auto" />
-            <Image src="/images/gallery/stc2.jpg" alt="Gallery image 2" width={600} height={400} className="w-full h-auto" />
-            <Image src="/images/gallery/stc3.jpg" alt="Gallery image 3" width={600} height={400} className="w-full h-auto" />
-            <Image src="/images/gallery/stc4.jpg" alt="Gallery image 4" width={600} height={400} className="w-full h-auto" />
-            <Image src="/images/gallery/stc5.jpg" alt="Gallery image 5" width={600} height={400} className="w-full h-auto" />
-            <Image src="/images/gallery/stc6.jpg" alt="Gallery image 6" width={600} height={400} className="w-full h-auto" />
-            <Image src="/images/gallery/stc7.jpg" alt="Gallery image 7" width={600} height={400} className="w-full h-auto" />
-            <Image src="/images/gallery/stc8.jpg" alt="Gallery image 8" width={600} height={400} className="w-full h-auto" />
-            <Image src="/images/gallery/stc9.jpg" alt="Gallery image 9" width={600} height={400} className="w-full h-auto" />
+            <Image src="/images/gallery/stc1.JPG" alt="Gallery image 1" width={600} height={400} className="w-full h-auto" />
+            <Image src="/images/gallery/stc2.JPG" alt="Gallery image 2" width={600} height={400} className="w-full h-auto" />
+            <Image src="/images/gallery/stc3.JPG" alt="Gallery image 3" width={600} height={400} className="w-full h-auto" />
+            <Image src="/images/gallery/stc4.JPG" alt="Gallery image 4" width={600} height={400} className="w-full h-auto" />
+            <Image src="/images/gallery/stc5.JPG" alt="Gallery image 5" width={600} height={400} className="w-full h-auto" />
+            <Image src="/images/gallery/stc6.JPG" alt="Gallery image 6" width={600} height={400} className="w-full h-auto" />
+            <Image src="/images/gallery/stc7.JPG" alt="Gallery image 7" width={600} height={400} className="w-full h-auto" />
+            <Image src="/images/gallery/stc8.JPG" alt="Gallery image 8" width={600} height={400} className="w-full h-auto" />
+            <Image src="/images/gallery/stc9.JPG" alt="Gallery image 9" width={600} height={400} className="w-full h-auto" />
           </div>
           <button className="px-6 mt-8 bg-red-500 rounded py-2 text-gray-50 w-full sm:w-auto ">View More ...</button>
         </div>

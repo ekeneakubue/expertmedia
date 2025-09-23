@@ -3,6 +3,8 @@ import Image from "next/image";
 import { GrStatusGood } from "react-icons/gr";
 import { MdLocationCity } from "react-icons/md";
 import { BsRobot } from "react-icons/bs";
+import { SiOpensearch, SiSemanticscholar } from "react-icons/si";
+import { GiNotebook } from "react-icons/gi";
 import { FaEnvelope, FaPhoneAlt, FaFacebook, FaLinkedinIn, FaInstagram} from "react-icons/fa";
 import { MobileMenu } from "./_components/MobileMenu";
 import { HeroSlider } from "./_components/HeroSlider";
@@ -141,11 +143,37 @@ export default async function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-4">
               <div className="bg-white rounded-md p-[2rem] gap-2">
                 <span className="text-red-500 text-[50px] text-center bg-green-500 mb-4">
+                  <SiSemanticscholar className="mx-auto mb-8"/>
+                </span> 
+                <div>
+                  <strong className="text-[20px]">ScholaEMS</strong>
+                  <p className="text-sm sm:text-base leading-relaxed text-gray-700 text-justify">
+                    With ScholarEMS, we are commited to fostering education and empowering Individuals through 
+                    our scholarship scheme. This initiative aims to provide financial assistance to exceptional 
+                    students who deminstrates excellence, leadership potentials, and a commitment to their skill.
+                  </p>
+                </div>
+              </div>
+              <div className="bg-white rounded-md p-[2rem] gap-2">
+                <span className="text-red-500 text-[50px] text-center bg-green-500 mb-4">
+                  <SiOpensearch className="mx-auto mb-8"/>
+                </span> 
+                <div>
+                  <strong className="text-[20px]">TalentEMS</strong>
+                  <p className="text-sm sm:text-base leading-relaxed text-gray-700 text-justify">
+                    At EMS, we belive that our greatest asset is our people. Our talent showcase a dedicated 
+                    section designed to highlight and celebrate the diverse skills, creativity and achievements 
+                    of our team members.
+                  </p>
+                </div>
+              </div>
+              <div className="bg-white rounded-md p-[2rem] gap-2">
+                <span className="text-red-500 text-[50px] text-center bg-green-500 mb-4">
                   <BsRobot className="mx-auto mb-8"/>
                 </span> 
                 <div>
                   <strong className="text-[20px]">RobEMS</strong>
-                  <p className="text-sm sm:text-base leading-relaxed text-gray-700 text-left">
+                  <p className="text-sm sm:text-base leading-relaxed text-gray-700 text-justify">
                     RobEMS is dedicated to advancing the field of robotics through innovative solutions and 
                     cutting-edge technology. With RobEMS, we specialize in designing and implementing robotic 
                     systems tailored to meet the unique needs of our clients. Our team of experts combines 
@@ -157,56 +185,24 @@ export default async function Home() {
               </div>
               <div className="bg-white rounded-md p-[2rem] gap-2">
                 <span className="text-red-500 text-[50px] text-center bg-green-500 mb-4">
-                  <BsRobot className="mx-auto mb-8"/>
+                  <GiNotebook className="mx-auto mb-8"/>
                 </span> 
                 <div>
-                  <strong className="text-[20px]">RobEMS</strong>
-                  <p className="text-sm sm:text-base leading-relaxed text-gray-700 text-left">
-                    RobEMS is dedicated to advancing the field of robotics through innovative solutions and 
-                    cutting-edge technology. With RobEMS, we specialize in designing and implementing robotic 
-                    systems tailored to meet the unique needs of our clients. Our team of experts combines 
-                    extensive knowledge in engineering, automation, and artificial intelligence to deliver 
-                    comprehensive solutions across various sectors, including manufacturing, healthcare, logistics, 
-                    and agriculture. 
-                  </p>
-                </div>
-              </div>
-              <div className="bg-white rounded-md p-[2rem] gap-2">
-                <span className="text-red-500 text-[50px] text-center bg-green-500 mb-4">
-                  <BsRobot className="mx-auto mb-8"/>
-                </span> 
-                <div>
-                  <strong className="text-[20px]">RobEMS</strong>
-                  <p className="text-sm sm:text-base leading-relaxed text-gray-700 text-left">
-                    RobEMS is dedicated to advancing the field of robotics through innovative solutions and 
-                    cutting-edge technology. With RobEMS, we specialize in designing and implementing robotic 
-                    systems tailored to meet the unique needs of our clients. Our team of experts combines 
-                    extensive knowledge in engineering, automation, and artificial intelligence to deliver 
-                    comprehensive solutions across various sectors, including manufacturing, healthcare, logistics, 
-                    and agriculture. 
-                  </p>
-                </div>
-              </div>
-              <div className="bg-white rounded-md p-[2rem] gap-2">
-                <span className="text-red-500 text-[50px] text-center bg-green-500 mb-4">
-                  <BsRobot className="mx-auto mb-8"/>
-                </span> 
-                <div>
-                  <strong className="text-[20px]">RobEMS</strong>
-                  <p className="text-sm sm:text-base leading-relaxed text-gray-700 text-left">
-                    RobEMS is dedicated to advancing the field of robotics through innovative solutions and 
-                    cutting-edge technology. With RobEMS, we specialize in designing and implementing robotic 
-                    systems tailored to meet the unique needs of our clients. Our team of experts combines 
-                    extensive knowledge in engineering, automation, and artificial intelligence to deliver 
-                    comprehensive solutions across various sectors, including manufacturing, healthcare, logistics, 
-                    and agriculture. 
+                  <strong className="text-[20px]">EduEMS</strong>
+                  <p className="text-sm sm:text-base leading-relaxed text-gray-700 text-justify">
+                    At EduEMS, we belive that knowledge is the foundation of innovation and success.
+                    Our educational materials section is dedicated to providing valuable resources
+                    that empower individuals and organisations to enhance their skill, stay informed 
+                    about industry trends, and informed decisions. whether you are a student, a 
+                    professional, or an educator our curated collections of educational materials is 
+                    designed to meet your needs.
                   </p>
                 </div>
               </div>              
               
             </div>
             <div className="flex justify-center mt-4">            
-              <button className="px-6 mt-8 bg-red-500 rounded py-2 text-gray-50 w-full sm:w-auto">View More ...</button>
+              <Link href="/services" className="px-6 mt-8 bg-red-500 rounded py-2 text-gray-50 w-full sm:w-auto text-center">View More ...</Link>
             </div>
           </div>
         </div>

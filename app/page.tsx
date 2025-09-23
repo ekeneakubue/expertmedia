@@ -18,8 +18,8 @@ export default async function Home() {
     const url = base ? `${base}/api/hero` : '/api/hero';
     const res = await fetch(url, { cache: 'no-store' });
     if (res.ok) {
-      const items = (await res.json()) as { id: string }[];
-      heroImages = items.map((it) => `/api/hero/${it.id}`);
+      const items = (await res.json()) as { url: string }[];
+      heroImages = items.map((it) => it.url);
     }
   } catch {}
   if (heroImages.length === 0) {
@@ -121,8 +121,8 @@ export default async function Home() {
                 Our team of Data Scientists and Analysts will help you collect, organize
                 and interprete your data to uncover valuable insights and derive strategic 
                 decision-making.
-              </p>
-            </div>
+          </p>
+        </div>
 
             <div className="flex gap-4 items-start">
               <div className="text-red-500 text-[30px]"><GrStatusGood /></div>
@@ -203,15 +203,15 @@ export default async function Home() {
                     designed to meet your needs.
                   </p>
                 </div>
-              </div>                
-            </div>
+          </div>
+        </div>
             <div className="flex justify-center mt-4">            
               <Link href="/services" className="px-6 mt-8 bg-red-500 rounded py-2 text-gray-50 w-full sm:w-auto text-center">View More ...</Link>
             </div>
           </div>
         </div>
       </section>
-     
+
 
       {/* Our Team */}
       <section id="team" className="px-6 sm:px-10 lg:px-20 py-16">
@@ -237,7 +237,7 @@ export default async function Home() {
         </div>
       </section>
 
-       {/* Board Members */}
+      {/* Board Members */}
       <section id="board" className="px-6 sm:px-10 lg:px-20 py-16 bg-gray-100">
         <div className="max-w-6xl mx-auto grid gap-3">
           <h2 className="text-2xl font-semibold mb-6 border-l-8 border-solid border-red-500 px-4">Board Members</h2>
@@ -259,7 +259,7 @@ export default async function Home() {
       </section>
 
       
-      
+
       {/* Gallery */}
       <section id="gallery" className="px-6 sm:px-10 lg:px-20 py-16 dark:bg-neutral-950">
         <div className="max-w-6xl mx-auto grid gap-3">
@@ -348,7 +348,7 @@ export default async function Home() {
         </div>
 
       </section>
-      
+
 
       {/* Footer */}
       <footer className="px-6 sm:px-10 py-10 border-t text-sm text-gray-600 dark:text-gray-300 bg-black">

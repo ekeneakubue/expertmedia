@@ -23,7 +23,11 @@ export default async function Home() {
     }
   } catch {}
   if (heroImages.length === 0) {
-    heroImages = ["/images/hero-1.jpg", "/images/hero-2.jpg", "/images/hero-3.jpg"];
+    heroImages = [
+      "/images/gallery/stc1.jpg",
+      "/images/gallery/stc2.jpg",
+      "/images/gallery/stc3.jpg",
+    ];
   }
   return (
     <div className="min-h-screen">
@@ -218,11 +222,9 @@ export default async function Home() {
             <div>
               <div><Image src="/images/team/gabriel.png" alt="Gabriel" width={300} height={300} className="w-full h-auto" /></div>              
             </div>
-
             <div>
-              <div><Image src="/images/team/emeka.png" alt="Emeka" width={300} height={300} className="w-full h-auto" /></div>              
+              <div><Image src="/images/team/emeka2.png" alt="Emeka" width={300} height={300} className="w-full h-auto" /></div>              
             </div>
-
             <div>
               <div><Image src="/images/team/emma.png" alt="Emma" width={300} height={300} className="w-full h-auto" /></div>              
             </div>

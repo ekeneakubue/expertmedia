@@ -391,20 +391,4 @@ export default async function Home() {
 
 // FeatureCard and ServiceCard removed (unused)
 
-export function QuoteCard({ quote, author }: { quote: string; author: string }) {
-  return (
-    <div className="border rounded-md p-4 bg-white/70 dark:bg-neutral-900/70">
-      <p className="text-sm italic mb-2">“{quote}”</p>
-      <div className="text-xs text-gray-600 dark:text-gray-300">{author}</div>
-    </div>
-  );
-}
-
-export function Stat({ value, label }: { value: string; label: string }) {
-  return (
-    <div className="border rounded-md p-4 bg-white dark:bg-neutral-950">
-      <div className="text-2xl font-semibold">{value}</div>
-      <div className="text-xs text-gray-600 dark:text-gray-300">{label}</div>
-    </div>
-  );
-}
+// Removed unused local components to satisfy Next.js allowed page exports

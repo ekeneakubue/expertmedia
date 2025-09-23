@@ -7,7 +7,6 @@ import { FaEnvelope, FaPhoneAlt, FaFacebook, FaLinkedinIn, FaInstagram} from "re
 import { MobileMenu } from "./_components/MobileMenu";
 import { HeroSlider } from "./_components/HeroSlider";
 import { ScrollToTop } from "./_components/ScrollToTop";
-/* eslint-disable @next/next/no-img-element */
 
 export default async function Home() {
   // Load hero images from admin-managed storage; fall back to defaults
@@ -221,19 +220,19 @@ export default async function Home() {
           <p className="text-gray-700 dark:text-gray-200 text-sm">Meet the professionals behind our solutions.</p>
           <div className="grid grid-cols-4 gap-4">
             <div>
-              <div><img src="images/team/gabriel.png" alt="" /></div>              
+              <div><Image src="/images/team/gabriel.png" alt="Gabriel" width={300} height={300} className="w-full h-auto" /></div>              
             </div>
 
             <div>
-              <div><img src="images/team/emeka.png" alt="" /></div>              
+              <div><Image src="/images/team/emeka.png" alt="Emeka" width={300} height={300} className="w-full h-auto" /></div>              
             </div>
 
             <div>
-              <div><img src="images/team/emma.png" alt="" /></div>              
+              <div><Image src="/images/team/emma.png" alt="Emma" width={300} height={300} className="w-full h-auto" /></div>              
             </div>
 
             <div>
-              <div><img src="images/team/ekene.png" alt="" /></div>              
+              <div><Image src="/images/team/ekene.png" alt="Ekene" width={300} height={300} className="w-full h-auto" /></div>              
             </div>
 
           </div>
@@ -247,15 +246,15 @@ export default async function Home() {
           <p className="text-gray-700 dark:text-gray-200 text-sm">Guiding our mission and long-term strategy.</p>
           <div className="grid grid-cols-3 gap-4">
             <div>
-              <div><img src="images/board/chukwuma.png" alt="" /></div>              
+              <div><Image src="/images/board/chukwuma.png" alt="Chukwuma" width={380} height={420} className="w-full h-auto" /></div>              
             </div>
 
             <div>
-              <div><img src="images/board/nnamdi.png" alt="" /></div>              
+              <div><Image src="/images/board/nnamdi.png" alt="Nnamdi" width={380} height={420} className="w-full h-auto" /></div>              
             </div>
 
             <div>
-              <div><img src="images/board/rotanna.png" alt="" /></div>              
+              <div><Image src="/images/board/rotanna.png" alt="Rotanna" width={380} height={420} className="w-full h-auto" /></div>              
             </div>
           </div>
         </div>
@@ -269,15 +268,15 @@ export default async function Home() {
           <h2 className="text-2xl font-semibold mb-6 border-l-8 border-solid border-red-500 px-4">Gallery</h2>
           <p className="text-gray-700 dark:text-gray-200 text-sm">Snapshots from projects, events, and community work.</p>
           <div className="grid grid-cols-3 gap-4">
-            <img src="images/gallery/stc1.jpg" alt="" />
-            <img src="images/gallery/stc2.jpg" alt="" />
-            <img src="images/gallery/stc3.jpg" alt="" />
-            <img src="images/gallery/stc4.jpg" alt="" />
-            <img src="images/gallery/stc5.jpg" alt="" />
-            <img src="images/gallery/stc6.jpg" alt="" />
-            <img src="images/gallery/stc7.jpg" alt="" />
-            <img src="images/gallery/stc8.jpg" alt="" />
-            <img src="images/gallery/stc9.jpg" alt="" />
+            <Image src="/images/gallery/stc1.jpg" alt="Gallery image 1" width={600} height={400} className="w-full h-auto" />
+            <Image src="/images/gallery/stc2.jpg" alt="Gallery image 2" width={600} height={400} className="w-full h-auto" />
+            <Image src="/images/gallery/stc3.jpg" alt="Gallery image 3" width={600} height={400} className="w-full h-auto" />
+            <Image src="/images/gallery/stc4.jpg" alt="Gallery image 4" width={600} height={400} className="w-full h-auto" />
+            <Image src="/images/gallery/stc5.jpg" alt="Gallery image 5" width={600} height={400} className="w-full h-auto" />
+            <Image src="/images/gallery/stc6.jpg" alt="Gallery image 6" width={600} height={400} className="w-full h-auto" />
+            <Image src="/images/gallery/stc7.jpg" alt="Gallery image 7" width={600} height={400} className="w-full h-auto" />
+            <Image src="/images/gallery/stc8.jpg" alt="Gallery image 8" width={600} height={400} className="w-full h-auto" />
+            <Image src="/images/gallery/stc9.jpg" alt="Gallery image 9" width={600} height={400} className="w-full h-auto" />
           </div>
           <button className="px-4 mt-[2rem] bg-red-500 rounded py-2 text-gray-50 w-[20%] mx-auto ">View More ...</button>
         </div>

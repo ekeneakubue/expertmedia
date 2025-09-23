@@ -7,6 +7,7 @@ import { FaEnvelope, FaPhoneAlt, FaFacebook, FaLinkedinIn, FaInstagram} from "re
 import { MobileMenu } from "./_components/MobileMenu";
 import { HeroSlider } from "./_components/HeroSlider";
 import { ScrollToTop } from "./_components/ScrollToTop";
+/* eslint-disable @next/next/no-img-element */
 
 export default async function Home() {
   // Load hero images from admin-managed storage; fall back to defaults
@@ -74,7 +75,7 @@ export default async function Home() {
         <div className="max-w-6xl mx-auto">
           <h2 className="text-2xl font-semibold mb-6 border-l-8 border-solid border-red-500 px-4">About Us</h2>
           <p>
-            In today's fast-paced digital landscape, having the right technology solutions is essential for 
+            In today&apos;s fast-paced digital landscape, having the right technology solutions is essential for 
             success. At <strong>Expert Media Solutions</strong>, we specialize in providing tailored IT 
             solutions that empower businesses to thrive. As a leading provider of robotic automation, sales 
             enablement, data analysis, and educational resources, we offer a comprehensive suite of services 
@@ -389,27 +390,7 @@ export default async function Home() {
   );
 }
 
-function FeatureCard({ title, description }: { title: string; description: string }) {
-  return (
-    <div className="border rounded-md p-4 bg-white dark:bg-neutral-950">
-      <div className="text-base font-medium mb-1">{title}</div>
-      <div className="text-sm text-gray-600 dark:text-gray-300">{description}</div>
-    </div>
-  );
-}
-
-function ServiceCard({ title, points }: { title: string; points: string[] }) {
-  return (
-    <div className="border rounded-md p-4 bg-white dark:bg-neutral-950">
-      <div className="text-base font-medium mb-2">{title}</div>
-      <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-300 space-y-1">
-        {points.map((p) => (
-          <li key={p}>{p}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
+// FeatureCard and ServiceCard removed (unused)
 
 export function QuoteCard({ quote, author }: { quote: string; author: string }) {
   return (

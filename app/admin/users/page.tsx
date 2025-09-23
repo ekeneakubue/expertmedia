@@ -29,7 +29,7 @@ export default function AdminUsersPage() {
     loadUsers();
   }, []);
 
-  // addUser handled by AddUserModal; remove unused local version
+  // addUser handled by AddUserModal; ensure no unused state vars
 
   return (
     <div className="space-y-6 overflow-y-scroll px-8 py-8">

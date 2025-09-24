@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import AddUserModal from "./AddUserModal";
 import EditUserModal from "./EditUserModal";
 
@@ -8,9 +9,9 @@ type User = { id: string; name: string; email: string; role: string; status: str
 
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(false);
+  // removed unused loading state
   const [listLoading, setListLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  // removed unused error state
   const [open, setOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [selected, setSelected] = useState<User | null>(null);
@@ -61,8 +62,7 @@ export default function AdminUsersPage() {
                   <td className="px-3 py-2">
                     <div className="flex items-center gap-2">
                       {u.imageUrl ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img src={u.imageUrl} alt={u.name} className="w-8 h-8 rounded-full object-cover" />
+                        <Image src={u.imageUrl} alt={u.name} width={32} height={32} className="rounded-full object-cover" />
                       ) : (
                         <div className="w-8 h-8 rounded-full bg-gray-200" />
                       )}

@@ -7,8 +7,9 @@ export const runtime = 'nodejs'
 export async function GET() {
   const { blobs } = await list({ prefix: 'hero/' })
   const images = blobs
-    .filter((b) => (b.contentType || '').startsWith('image/'))
+    .filter((b) => /\.(png|jpe?g|webp|gif|avif)$/i.test(b.pathname))
     .map((b) => ({ url: b.url, size: b.size }))
+    .filter((i) => !!i.url)
   return NextResponse.json(images)
 }
 

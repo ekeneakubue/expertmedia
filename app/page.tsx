@@ -210,11 +210,31 @@ export default async function Home() {
             </div>
           </div>
         </div>
+      </section>      
+
+      {/* Board Members */}
+      <section id="board" className="px-6 sm:px-10 lg:px-20 py-16 ">
+        <div className="max-w-6xl mx-auto grid gap-3">
+          <h2 className="text-2xl font-semibold mb-6 border-l-8 border-solid border-red-500 px-4">Board Members</h2>
+          <p className="text-gray-700 dark:text-gray-200 text-sm">Guiding our mission and long-term strategy.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div>
+              <div><Image src="/images/board/chukwuma.png" alt="Chukwuma" width={380} height={420} className="w-full h-auto" /></div>              
+            </div>
+
+            <div>
+              <div><Image src="/images/board/nnamdi.png" alt="Nnamdi" width={380} height={420} className="w-full h-auto" /></div>              
+            </div>
+
+            <div>
+              <div><Image src="/images/board/rotanna.png" alt="Rotanna" width={380} height={420} className="w-full h-auto" /></div>              
+            </div>
+          </div>
+        </div>
       </section>
 
-
       {/* Our Team */}
-      <section id="team" className="px-6 sm:px-10 lg:px-20 py-16">
+      <section id="team" className="px-6 sm:px-10 lg:px-20 py-16 bg-gray-100">
         <div className="max-w-6xl mx-auto grid gap-3">
           <h2 className="text-2xl font-semibold mb-6 border-l-8 border-solid border-red-500 px-4">Our Team</h2>
           <p className="text-gray-700 dark:text-gray-200 text-sm">Meet the professionals behind our solutions.</p>
@@ -235,30 +255,7 @@ export default async function Home() {
 
           </div>
         </div>
-      </section>
-
-      {/* Board Members */}
-      <section id="board" className="px-6 sm:px-10 lg:px-20 py-16 bg-gray-100">
-        <div className="max-w-6xl mx-auto grid gap-3">
-          <h2 className="text-2xl font-semibold mb-6 border-l-8 border-solid border-red-500 px-4">Board Members</h2>
-          <p className="text-gray-700 dark:text-gray-200 text-sm">Guiding our mission and long-term strategy.</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div>
-              <div><Image src="/images/board/chukwuma.png" alt="Chukwuma" width={380} height={420} className="w-full h-auto" /></div>              
-            </div>
-
-            <div>
-              <div><Image src="/images/board/nnamdi.png" alt="Nnamdi" width={380} height={420} className="w-full h-auto" /></div>              
-            </div>
-
-            <div>
-              <div><Image src="/images/board/rotanna.png" alt="Rotanna" width={380} height={420} className="w-full h-auto" /></div>              
-            </div>
-          </div>
-        </div>
-      </section>
-
-      
+      </section>      
 
       {/* Gallery */}
       <section id="gallery" className="px-6 sm:px-10 lg:px-20 py-16 dark:bg-neutral-950">

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { hashPassword } from '@/lib/auth';
+import { Prisma } from '@prisma/client';
 
 export const runtime = 'nodejs';
 
@@ -30,6 +31,9 @@ export async function POST(req: NextRequest) {
     });
     return NextResponse.json(user, { status: 201 });
   } catch (e: unknown) {
+    if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2002') {
+      return NextResponse.json({ message: 'A user with this email already exists' }, { status: 409 });
+    }
     const message = e instanceof Error ? e.message : 'Server error';
     return NextResponse.json({ message }, { status: 500 });
   }

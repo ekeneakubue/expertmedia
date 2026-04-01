@@ -5,7 +5,7 @@ import AddUser from './AddUser';
 type Props = {
   open: boolean;
   onClose: () => void;
-  onCreated?: () => void;
+  onCreated?: () => void | Promise<void>;
 };
 
 export default function AddUserModal({ open, onClose, onCreated }: Props) {
@@ -18,7 +18,12 @@ export default function AddUserModal({ open, onClose, onCreated }: Props) {
           <h2 className="text-lg font-semibold">Add user</h2>
           <button onClick={onClose} className="text-sm rounded-md border px-2 py-1">Close</button>
         </div>
-        <AddUser onCreated={() => { onCreated?.(); onClose(); }} />
+        <AddUser
+          onCreated={async () => {
+            await onCreated?.();
+            onClose();
+          }}
+        />
       </div>
     </div>
   );

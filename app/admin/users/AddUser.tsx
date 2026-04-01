@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 type Props = {
-  onCreated?: () => void;
+  onCreated?: () => void | Promise<void>;
 };
 
 export default function AddUser({ onCreated }: Props) {
@@ -35,7 +35,7 @@ export default function AddUser({ onCreated }: Props) {
         setEmail('');
         setRole('STAFF');
         setPassword('');
-        onCreated?.();
+        await onCreated?.();
       }
     } finally {
       setSubmitting(false);

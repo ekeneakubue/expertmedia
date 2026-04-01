@@ -11,6 +11,7 @@ import { HeroSlider } from "./_components/HeroSlider";
 import { ScrollToTop } from "./_components/ScrollToTop";
 
 export default async function Home() {
+  const currentYear = new Date().getFullYear();
   // Load hero images from admin-managed storage; fall back to defaults
   let heroImages: string[] = [];
   try {
@@ -348,35 +349,53 @@ export default async function Home() {
 
 
       {/* Footer */}
-      <footer className="px-6 sm:px-10 py-10 border-t text-sm text-gray-600 dark:text-gray-300 bg-black">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8">
-          <div className="space-y-2">
-            <div className="font-semibold">ExpertMedia IT</div>
-            <p className="text-xs">Solve problems, improve efficiency, and transform your organization using innovative tech-powered solutions.</p>
+      <footer className="px-6 sm:px-10 py-14 border-t border-white/10 text-sm text-gray-300 bg-neutral-950">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 items-start">
+          <div className="space-y-4 lg:col-span-5">
+            <Link href="/" className="inline-flex items-center">
+              <Image
+                src="/images/logo2.png"
+                alt="Expert Media Solutions"
+                width={120}
+                height={26}
+                className="h-auto w-auto brightness-110"
+              />
+            </Link>
+            <p className="text-sm leading-6 text-gray-400">
+              We help organizations scale with practical, modern technology solutions in automation,
+              analytics, and digital enablement.
+            </p>
           </div>
-          <div>
-            <div className="font-medium mb-2">Company</div>
-            <ul className="space-y-1">
-              <li><a className="hover:underline" href="#">Home</a></li>
-              <li><a className="hover:underline" href="#about">Company History</a></li>
-              <li><a className="hover:underline" href="#values">Our Vision</a></li>
-              <li><a className="hover:underline" href="#values">Our Mission</a></li>
+          <div className="lg:col-span-2">
+            <div className="font-semibold text-white mb-4 tracking-wide uppercase text-xs">Company</div>
+            <ul className="space-y-2.5">
+              <li><a className="hover:text-red-400 transition-colors" href="#about">About Us</a></li>
+              <li><a className="hover:text-red-400 transition-colors" href="#services">Services</a></li>
+              <li><a className="hover:text-red-400 transition-colors" href="#team">Our Team</a></li>
+              <li><a className="hover:text-red-400 transition-colors" href="#board">Board Members</a></li>
             </ul>
           </div>
-          <div>
-            <div className="font-medium mb-2">Products</div>
-            <ul className="space-y-1">
-              <li><a className="hover:underline" href="#products">RobEMS</a></li>
-              <li><a className="hover:underline" href="#products">SalEMS</a></li>
-              <li><a className="hover:underline" href="#products">LapEMS</a></li>
-              <li><a className="hover:underline" href="#products">DatEMS</a></li>
-              <li><a className="hover:underline" href="#products">EduEMS</a></li>
+          <div className="lg:col-span-2">
+            <div className="font-semibold text-white mb-4 tracking-wide uppercase text-xs">Solutions</div>
+            <ul className="space-y-2.5">
+              <li><a className="hover:text-red-400 transition-colors" href="#services">RobEMS</a></li>
+              <li><a className="hover:text-red-400 transition-colors" href="#services">TalentEMS</a></li>
+              <li><a className="hover:text-red-400 transition-colors" href="#services">ScholaEMS</a></li>
+              <li><a className="hover:text-red-400 transition-colors" href="#services">EduEMS</a></li>
+            </ul>
+          </div>
+          <div className="lg:col-span-3">
+            <div className="font-semibold text-white mb-4 tracking-wide uppercase text-xs">Contact</div>
+            <ul className="space-y-2.5 text-gray-400">
+              <li><a href="mailto:help@expertmediasolution.com" className="hover:text-red-400 transition-colors">help@expertmediasolution.com</a></li>
+              <li><a href="tel:+2348034615603" className="hover:text-red-400 transition-colors">+234 8034 615 603</a></li>
+              <li>Nsukka, Enugu State, Nigeria</li>
             </ul>
           </div>
         </div>
-        <div className="max-w-6xl mx-auto mt-8 flex items-center justify-between">
-          <div>© {new Date().getFullYear()} ExpertMedia IT</div>
-          <Link href="/login" className="hover:underline">Admin</Link>
+        <div className="max-w-6xl mx-auto mt-10 pt-5 border-t border-white/10 flex flex-col sm:flex-row gap-3 items-center justify-between text-gray-400">
+          <div className="text-center sm:text-left">© {currentYear} ExpertMedia IT. All rights reserved.</div>
+          <Link href="/login" className="hover:text-red-400 transition-colors">Admin Portal</Link>
         </div>
       </footer>
       <ScrollToTop />

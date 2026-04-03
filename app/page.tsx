@@ -9,19 +9,19 @@ import { FaEnvelope, FaPhoneAlt, FaFacebook, FaLinkedinIn, FaInstagram} from "re
 import { MobileMenu } from "./_components/MobileMenu";
 import { HeroSlider } from "./_components/HeroSlider";
 import { ScrollToTop } from "./_components/ScrollToTop";
+import { prisma } from "@/lib/prisma";
+
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const currentYear = new Date().getFullYear();
-  // Load hero images from admin-managed storage; fall back to defaults
   let heroImages: string[] = [];
   try {
-    const base = process.env.NEXT_PUBLIC_BASE_URL?.replace(/\/$/, '') || '';
-    const url = base ? `${base}/api/hero` : '/api/hero';
-    const res = await fetch(url, { cache: 'no-store' });
-    if (res.ok) {
-      const items = (await res.json()) as { url: string }[];
-      heroImages = items.map((it) => it.url);
-    }
+    const rows = await prisma.heroImage.findMany({
+      orderBy: [{ order: "asc" }, { createdAt: "asc" }],
+      select: { url: true },
+    });
+    heroImages = rows.map((r) => r.url);
   } catch {}
   if (heroImages.length === 0) {
     heroImages = [

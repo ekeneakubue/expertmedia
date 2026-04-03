@@ -2,14 +2,16 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { hashPassword } from '@/lib/auth';
 import type { Prisma } from '@prisma/client';
-import { promises as fs } from 'fs';
 import path from 'path';
+import { saveUploadedFile, deleteStoredFile } from '@/lib/server-media';
 
 export const runtime = 'nodejs';
 
 export async function DELETE(_req: NextRequest, context: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await context.params;
+    const existing = await prisma.user.findUnique({ where: { id }, select: { imageUrl: true } });
+    if (existing?.imageUrl) await deleteStoredFile(existing.imageUrl);
     await prisma.user.delete({ where: { id } });
     return NextResponse.json({ ok: true });
   } catch (e: unknown) {
@@ -38,23 +40,25 @@ export async function PATCH(req: NextRequest, context: { params: Promise<{ id: s
       if (status !== null) data.status = status;
       if (password) data.passwordHash = await hashPassword(password);
 
-      // Save avatar if provided (serve from /public/avatars for direct access)
-      if (avatar instanceof File) {
-        const buf = Buffer.from(await avatar.arrayBuffer());
-        const publicDir = path.join(process.cwd(), 'public', 'avatars');
-        await fs.mkdir(publicDir, { recursive: true });
-        const originalName = (avatar as File).name || '';
+      if (avatar instanceof File && avatar.size > 0) {
+        const prev = await prisma.user.findUnique({ where: { id }, select: { imageUrl: true } });
+        const originalName = avatar.name || '';
         let ext = path.extname(originalName).toLowerCase();
         if (!ext) {
-          const t = (avatar as File).type || '';
+          const t = avatar.type || '';
           ext = t === 'image/jpeg' ? '.jpg' : t === 'image/webp' ? '.webp' : t === 'image/png' ? '.png' : '.png';
         }
-        const filename = `${id}${ext}`;
-        await fs.writeFile(path.join(publicDir, filename), buf);
-        data.imageUrl = `/avatars/${filename}`;
+        const diskName = `${id}${ext}`;
+        const { url } = await saveUploadedFile(avatar, 'avatars', diskName);
+        data.imageUrl = url;
+        if (prev?.imageUrl && prev.imageUrl !== url) await deleteStoredFile(prev.imageUrl);
       }
 
-      const user = await prisma.user.update({ where: { id }, data, select: { id: true, name: true, email: true, role: true, status: true, createdAt: true } });
+      const user = await prisma.user.update({
+        where: { id },
+        data,
+        select: { id: true, name: true, email: true, role: true, status: true, createdAt: true, imageUrl: true },
+      });
       return NextResponse.json(user);
     }
 
@@ -69,7 +73,11 @@ export async function PATCH(req: NextRequest, context: { params: Promise<{ id: s
     if (status !== undefined) data.status = status;
     if (password) data.passwordHash = await hashPassword(password);
 
-    const user = await prisma.user.update({ where: { id }, data, select: { id: true, name: true, email: true, role: true, status: true, createdAt: true } });
+    const user = await prisma.user.update({
+      where: { id },
+      data,
+      select: { id: true, name: true, email: true, role: true, status: true, createdAt: true, imageUrl: true },
+    });
     return NextResponse.json(user);
   } catch (e: unknown) {
     const message = e instanceof Error ? e.message : 'Server error';

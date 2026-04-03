@@ -9,31 +9,18 @@ import { FaEnvelope, FaPhoneAlt, FaFacebook, FaLinkedinIn, FaInstagram} from "re
 import { MobileMenu } from "./_components/MobileMenu";
 import { HeroSlider } from "./_components/HeroSlider";
 import { ScrollToTop } from "./_components/ScrollToTop";
-import { prisma } from "@/lib/prisma";
+import { getHeroImageUrlsForHome } from "@/lib/hero-images";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const currentYear = new Date().getFullYear();
-  let heroImages: string[] = [];
-  try {
-    const rows = await prisma.heroImage.findMany({
-      orderBy: [{ order: "asc" }, { createdAt: "asc" }],
-      select: { url: true },
-    });
-    heroImages = rows.map((r) => r.url);
-  } catch {}
-  if (heroImages.length === 0) {
-    heroImages = [
-      "/images/gallery/stc1.jpg",
-      "/images/gallery/stc2.jpg",
-      "/images/gallery/stc3.jpg",
-    ];
-  }
+  const heroImages = await getHeroImageUrlsForHome();
   return (
     <div className="min-h-screen">
-      {/* Header */}
-      <header className="w-full bg-white top-0 z-10">
+      {/* Navbar + hero share exactly one viewport height */}
+      <div className="h-screen flex flex-col">
+      <header className="shrink-0 w-full bg-white top-0 z-10">
         <div className="w-full mx-auto flex items-center justify-between md:justify-center px-6 py-3 relative">
           <Link href='/' className="font-semibold text-center"><Image src="/images/logo.png" alt="Expert Media Solutions" width={160} height={48} /></Link>
           <MobileMenu
@@ -61,7 +48,6 @@ export default async function Home() {
         </div>
       </header>
 
-      {/* Hero Slider */}
       <HeroSlider images={heroImages}>
         <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-white">
           Welcome to Expert Media Solutions
@@ -75,6 +61,7 @@ export default async function Home() {
           </Link>
         </div>
       </HeroSlider>
+      </div>
 
       {/* About Expert Media */}
       <section id="about" className="px-6 sm:px-10 lg:px-20 py-16 min-h-[60vh]">

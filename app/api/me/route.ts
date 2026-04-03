@@ -3,8 +3,8 @@ import { cookies } from 'next/headers';
 import { prisma } from '@/lib/prisma';
 import { hashPassword } from '@/lib/auth';
 import type { Prisma } from '@prisma/client';
-import { promises as fs } from 'fs';
 import path from 'path';
+import { saveUploadedFile, deleteStoredFile } from '@/lib/server-media';
 
 export const runtime = 'nodejs';
 
@@ -47,7 +47,10 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ message: 'Not signed in' }, { status: 401 });
     }
 
-    const user = await prisma.user.findUnique({ where: { email: sessionEmail } });
+    const user = await prisma.user.findUnique({
+      where: { email: sessionEmail },
+      select: { id: true, email: true, imageUrl: true },
+    });
     if (user) {
       const contentType = req.headers.get('content-type') || '';
       if (contentType.startsWith('multipart/form-data')) {
@@ -66,18 +69,16 @@ export async function PATCH(req: NextRequest) {
         }
 
         if (avatar instanceof File && avatar.size > 0) {
-          const buf = Buffer.from(await avatar.arrayBuffer());
-          const publicDir = path.join(process.cwd(), 'public', 'avatars');
-          await fs.mkdir(publicDir, { recursive: true });
           const originalName = avatar.name || '';
           let ext = path.extname(originalName).toLowerCase();
           if (!ext) {
             const t = avatar.type || '';
             ext = t === 'image/jpeg' ? '.jpg' : t === 'image/webp' ? '.webp' : t === 'image/png' ? '.png' : '.png';
           }
-          const filename = `${user.id}${ext}`;
-          await fs.writeFile(path.join(publicDir, filename), buf);
-          data.imageUrl = `/avatars/${filename}`;
+          const diskName = `${user.id}${ext}`;
+          const { url } = await saveUploadedFile(avatar, 'avatars', diskName);
+          if (user.imageUrl && user.imageUrl !== url) await deleteStoredFile(user.imageUrl);
+          data.imageUrl = url;
         }
 
         const updated = await prisma.user.update({

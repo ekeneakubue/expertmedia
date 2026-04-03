@@ -15,9 +15,13 @@ export default async function AdminLayout({ children }: { children: ReactNode })
     redirect('/login');
   }
 
-  // Fetch avatar/name for header
+  // Fetch avatar/name and user count for sidebar
   let avatarUrl: string | null = null;
   let displayName: string = 'Profile';
+  let userCount = 0;
+  try {
+    userCount = await prisma.user.count();
+  } catch {}
   if (userEmail) {
     try {
       const user = await prisma.user.findUnique({ where: { email: userEmail }, select: { name: true, imageUrl: true } });
@@ -36,7 +40,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
         <div className="text-center w-full mb-6">
           <Image src="/images/logo2.png" alt="Expert Media Solutions" width={160} height={48} className=" w-[50%] pt-6 inline-block" />
         </div>
-        <AdminNav role={role || undefined} />
+        <AdminNav role={role || undefined} userCount={userCount} />
         <div className="mt-6 text-xs text-gray-500">v1.0</div>
       </aside>
       <main className="gap-4">

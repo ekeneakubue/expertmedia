@@ -4,9 +4,12 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// prisma/schema.prisma
 datasource db {
   provider  = "postgresql"
-  url       = env("DATABASE_URL")
+  url  	    = env("DATABASE_URL")
+  // uncomment next line if you use Prisma <5.10
+  // directUrl = env("DATABASE_URL_UNPOOLED")
 }
 
 // =====================
@@ -195,6 +198,15 @@ model PasswordResetToken {
 
   @@index([userId])
   @@index([expiresAt])
+}
+
+model HeroImage {
+  id        String   @id @default(cuid())
+  filename  String
+  url       String
+  size      Int?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
 }
 
 enum PaymentStatus {

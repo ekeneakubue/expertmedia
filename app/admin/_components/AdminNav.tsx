@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 const adminLinks = [
@@ -11,16 +10,18 @@ const adminLinks = [
   { href: '/admin/projects', label: 'Projects' },
   { href: '/admin/tickets', label: 'Tickets' },
   { href: '/admin/analysis', label: 'Data collection' },
-  { href: '/admin/logs', label: 'Audit Logs' },
+  { href: '/admin/hero', label: 'Manage Hero' },
   { href: '/admin/settings', label: 'Settings' },
 ];
 
 const staffLinks = [
   { href: '/admin', label: 'Overview' },
+  { href: '/admin/users', label: 'Users' },
   { href: '/admin/clients', label: 'Clients' },
   { href: '/admin/projects', label: 'Projects' },
   { href: '/admin/tickets', label: 'Tickets' },
   { href: '/admin/analysis', label: 'Data collection' },
+  { href: '/admin/hero', label: 'Manage Hero' },
   { href: '/admin/settings', label: 'Settings' },
 ];
 
@@ -31,30 +32,10 @@ const clientLinks = [
   { href: '/admin/settings', label: 'Settings' },
 ];
 
-export function AdminNav({ role: roleProp }: { role?: string }) {
+export function AdminNav({ role: roleProp, userCount }: { role?: string; userCount?: number }) {
   const pathname = usePathname();
-  const [counts, setCounts] = useState<{ users?: number }>({});
-  const [role, setRole] = useState<string | null>(roleProp ?? null);
 
-  useEffect(() => {
-    fetch('/api/users/count')
-      .then(async (r) => {
-        if (r.ok) {
-          const { total } = await r.json();
-          setCounts((c) => ({ ...c, users: total }));
-        }
-      })
-      .catch(() => {});
-    if (!roleProp) {
-      // Best-effort (non-httpOnly) cookie read; if httpOnly, roleProp from server will be used
-      try {
-        const cookie = document.cookie.split('; ').find((c) => c.startsWith('role='));
-        setRole(cookie ? decodeURIComponent(cookie.split('=')[1]) : null);
-      } catch {}
-    }
-  }, [roleProp]);
-
-  const effectiveRole = (roleProp ?? role) || 'ADMIN';
+  const effectiveRole = roleProp || 'ADMIN';
   const roleLinks = effectiveRole === 'CLIENT' ? clientLinks : (effectiveRole === 'MANAGER' || effectiveRole === 'STAFF') ? staffLinks : adminLinks;
 
   return (
@@ -73,8 +54,8 @@ export function AdminNav({ role: roleProp }: { role?: string }) {
             }
           >
             {link.label}
-            {link.href === '/admin/users' && counts.users !== undefined && (
-              <span className="ml-2 inline-block text-xs rounded-full bg-red-500 text-white px-2 py-[1px] align-middle">{counts.users}</span>
+            {link.href === '/admin/users' && userCount !== undefined && userCount > 0 && (
+              <span className="ml-2 inline-block text-xs rounded-full bg-red-500 text-white px-2 py-[1px] align-middle">{userCount}</span>
             )}
           </Link>
         );

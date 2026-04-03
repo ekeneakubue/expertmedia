@@ -21,7 +21,7 @@ export function HeroSlider({ images, intervalMs = 5000, children }: Props) {
   }, [images, intervalMs]);
 
   return (
-    <section className="relative overflow-hidden h-screen px-6 sm:px-10 py-28 md:py-36 bg-black flex items-center">
+    <section className="relative flex-1 min-h-0 w-full overflow-hidden px-6 sm:px-10 py-8 md:py-12 bg-black flex items-center">
       {images.map((src, i) => (
         <Image
           key={src}

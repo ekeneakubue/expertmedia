@@ -32,8 +32,9 @@ export default async function Home() {
   }
   return (
     <div className="min-h-screen">
-      {/* Header */}
-      <header className="w-full bg-white top-0 z-10">
+      {/* Navbar + hero share exactly one viewport height */}
+      <div className="h-screen flex flex-col">
+      <header className="shrink-0 w-full bg-white top-0 z-10">
         <div className="w-full mx-auto flex items-center justify-between md:justify-center px-6 py-3 relative">
           <Link href='/' className="font-semibold text-center"><Image src="/images/logo.png" alt="Expert Media Solutions" width={160} height={48} /></Link>
           <MobileMenu
@@ -61,7 +62,6 @@ export default async function Home() {
         </div>
       </header>
 
-      {/* Hero Slider */}
       <HeroSlider images={heroImages}>
         <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-white">
           Welcome to Expert Media Solutions
@@ -75,6 +75,7 @@ export default async function Home() {
           </Link>
         </div>
       </HeroSlider>
+      </div>
 
       {/* About Expert Media */}
       <section id="about" className="px-6 sm:px-10 lg:px-20 py-16 min-h-[60vh]">

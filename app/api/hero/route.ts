@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { promises as fs } from 'fs'
 import path from 'path'
 import { randomUUID } from 'crypto'
+import { saveUploadedFile } from '@/lib/server-media'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -29,13 +29,9 @@ export async function POST(req: NextRequest) {
     }
 
     const ext = path.extname(file.name).toLowerCase() || '.jpg'
-    const filename = `${randomUUID()}${ext}`
-    const heroDir = path.join(process.cwd(), 'public', 'hero')
-    await fs.mkdir(heroDir, { recursive: true })
-    const buf = Buffer.from(await file.arrayBuffer())
-    await fs.writeFile(path.join(heroDir, filename), buf)
+    const diskFileName = `${randomUUID()}${ext}`
+    const { url, filename } = await saveUploadedFile(file, 'hero', diskFileName)
 
-    const url = `/hero/${filename}`
     const count = await prisma.heroImage.count()
     const image = await prisma.heroImage.create({
       data: { filename, url, size: file.size, order: count },

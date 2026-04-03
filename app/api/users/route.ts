@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { hashPassword } from '@/lib/auth';
 import { Prisma } from '@prisma/client';
-import { promises as fs } from 'fs';
 import path from 'path';
+import { saveUploadedFile } from '@/lib/server-media';
 
 export const runtime = 'nodejs';
 
@@ -49,16 +49,12 @@ export async function POST(req: NextRequest) {
       select: { id: true, name: true, email: true, role: true, status: true, createdAt: true, imageUrl: true },
     });
 
-    // Save avatar after user is created so we have the id
     if (avatar) {
-      const buf = Buffer.from(await avatar.arrayBuffer());
-      const publicDir = path.join(process.cwd(), 'public', 'avatars');
-      await fs.mkdir(publicDir, { recursive: true });
       const ext = path.extname(avatar.name).toLowerCase() || '.png';
-      const filename = `${user.id}${ext}`;
-      await fs.writeFile(path.join(publicDir, filename), buf);
-      await prisma.user.update({ where: { id: user.id }, data: { imageUrl: `/avatars/${filename}` } });
-      (user as { imageUrl?: string | null }).imageUrl = `/avatars/${filename}`;
+      const diskName = `${user.id}${ext}`;
+      const { url } = await saveUploadedFile(avatar, 'avatars', diskName);
+      await prisma.user.update({ where: { id: user.id }, data: { imageUrl: url } });
+      (user as { imageUrl?: string | null }).imageUrl = url;
     }
 
     return NextResponse.json(user, { status: 201 });

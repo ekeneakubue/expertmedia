@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { promises as fs } from 'fs'
-import path from 'path'
+import { deleteStoredFile } from '@/lib/server-media'
 
 export const runtime = 'nodejs'
 
@@ -11,12 +10,7 @@ export async function DELETE(_req: NextRequest, context: { params: Promise<{ id:
     const image = await prisma.heroImage.findUnique({ where: { id } })
     if (!image) return NextResponse.json({ message: 'Not found' }, { status: 404 })
 
-    // Remove file from disk
-    try {
-      const filePath = path.join(process.cwd(), 'public', 'hero', image.filename)
-      await fs.unlink(filePath)
-    } catch {}
-
+    await deleteStoredFile(image.url)
     await prisma.heroImage.delete({ where: { id } })
     return NextResponse.json({ ok: true })
   } catch (e: unknown) {

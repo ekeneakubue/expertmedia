@@ -4,9 +4,20 @@ import path from 'path';
 
 const BLOB_TOKEN = process.env.BLOB_READ_WRITE_TOKEN;
 
+/** True on any serverless/read-only host (Vercel, Netlify, Lambda). */
+function isReadOnlyHost(): boolean {
+  return !!(
+    process.env.VERCEL ||
+    process.env.NETLIFY ||
+    process.env.AWS_LAMBDA_FUNCTION_NAME
+  );
+}
+
 /**
- * Production (Vercel): filesystem under `public/` is ephemeral — uploads must use Blob when token is set.
+ * Production (Vercel): filesystem under `public/` is read-only — uploads MUST use Blob.
  * Local dev: writes to `public/{folder}/` and returns a site-relative URL.
+ *
+ * Requires BLOB_READ_WRITE_TOKEN env var on any serverless host.
  */
 export async function saveUploadedFile(
   file: File,
@@ -14,6 +25,7 @@ export async function saveUploadedFile(
   diskFileName: string,
 ): Promise<{ url: string; filename: string }> {
   const safeName = diskFileName.replace(/[^a-zA-Z0-9._-]/g, '_');
+
   if (BLOB_TOKEN) {
     const key = `${folder}/${safeName}`;
     const uploaded = await put(key, file, {
@@ -24,6 +36,14 @@ export async function saveUploadedFile(
     return { url: uploaded.url, filename: safeName };
   }
 
+  if (isReadOnlyHost()) {
+    throw new Error(
+      'File uploads require Vercel Blob in production. ' +
+      'Add BLOB_READ_WRITE_TOKEN to your environment variables, then redeploy.',
+    );
+  }
+
+  // Local dev: write to public/<folder>/
   const dir = path.join(process.cwd(), 'public', folder);
   await fs.mkdir(dir, { recursive: true });
   const buf = Buffer.from(await file.arrayBuffer());

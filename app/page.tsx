@@ -382,7 +382,11 @@ export default async function Home() {
         </div>
         <div className="max-w-6xl mx-auto mt-10 pt-5 border-t border-white/10 flex flex-col sm:flex-row gap-3 items-center justify-between text-gray-400">
           <div className="text-center sm:text-left">© {currentYear} ExpertMedia IT. All rights reserved.</div>
-          <Link href="/login" className="hover:text-red-400 transition-colors">Admin Portal</Link>
+          <div className="flex items-center gap-4">
+            <a href="https://wghp6.wghservers.com:2096/webmaillogout.cgi" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 transition-colors">Webmail</a>
+            <span className="text-white/20">|</span>
+            <Link href="/login" className="hover:text-red-400 transition-colors">Admin Portal</Link>
+          </div>
         </div>
       </footer>
       <ScrollToTop />

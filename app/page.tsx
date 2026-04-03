@@ -9,27 +9,13 @@ import { FaEnvelope, FaPhoneAlt, FaFacebook, FaLinkedinIn, FaInstagram} from "re
 import { MobileMenu } from "./_components/MobileMenu";
 import { HeroSlider } from "./_components/HeroSlider";
 import { ScrollToTop } from "./_components/ScrollToTop";
-import { prisma } from "@/lib/prisma";
+import { getHeroImageUrlsForHome } from "@/lib/hero-images";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const currentYear = new Date().getFullYear();
-  let heroImages: string[] = [];
-  try {
-    const rows = await prisma.heroImage.findMany({
-      orderBy: [{ order: "asc" }, { createdAt: "asc" }],
-      select: { url: true },
-    });
-    heroImages = rows.map((r) => r.url);
-  } catch {}
-  if (heroImages.length === 0) {
-    heroImages = [
-      "/images/gallery/stc1.jpg",
-      "/images/gallery/stc2.jpg",
-      "/images/gallery/stc3.jpg",
-    ];
-  }
+  const heroImages = await getHeroImageUrlsForHome();
   return (
     <div className="min-h-screen">
       {/* Navbar + hero share exactly one viewport height */}

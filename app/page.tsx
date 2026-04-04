@@ -2,12 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { GrStatusGood } from "react-icons/gr";
 import { MdLocationCity } from "react-icons/md";
-import { BsRobot, BsYelp } from "react-icons/bs";
+import { BsRobot } from "react-icons/bs";
 import { SiOpensearch, SiSemanticscholar } from "react-icons/si";
 import { GiNotebook } from "react-icons/gi";
-import { GrDatabase } from "react-icons/gr";
-import { MdOutlineLaptopMac, MdModelTraining } from "react-icons/md";
-import { IoGameControllerSharp } from "react-icons/io5";
 import { FaEnvelope, FaPhoneAlt, FaFacebook, FaLinkedinIn, FaInstagram } from "react-icons/fa";
 import { MobileMenu } from "./_components/MobileMenu";
 import { HeroSlider } from "./_components/HeroSlider";
@@ -56,12 +53,12 @@ export default async function Home() {
         <div className="mt-0 hidden sm:flex items-center sm:w-full justify-center  text-xs bg-red-400">
           <nav className="flex items-center">
             <Link href="#about" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-l-2 border-l-amber-50 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">About Us</Link>
-            <a href="/services" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Services</a>
-            <a href="/products" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Our Products</a>
-            <a href="/team" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Our Team</a>
-            <a href="#gallery" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Gallery</a>
-            <a href="/contacts" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Contact Us</a>
-            <a href="/login" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Login</a>
+            <Link href="/services" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Services</Link>
+            <Link href="/products" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Our Products</Link>
+            <Link href="/team" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Our Team</Link>
+            <Link href="#gallery" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Gallery</Link>
+            <Link href="/contacts" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Contact Us</Link>
+            <Link href="/login" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Login</Link>
           </nav>
         </div>
       </header>

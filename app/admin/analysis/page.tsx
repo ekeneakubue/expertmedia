@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 
@@ -18,7 +18,7 @@ export default function AdminAnalysisPage() {
   const [paidFileIds, setPaidFileIds] = useState<Record<string, boolean>>({});
   const [role, setRole] = useState<string | null>(null);
 
-  async function refresh(tab?: 'paid' | 'unpaid') {
+  const refresh = useCallback(async (tab?: 'paid' | 'unpaid') => {
     setFilesLoading(true);
     try {
       const qp = tab && role === 'ADMIN' ? `?tab=${tab}` : '';
@@ -27,13 +27,11 @@ export default function AdminAnalysisPage() {
     } finally {
       setFilesLoading(false);
     }
-  }
+  }, [role]);
 
   useEffect(() => {
-    refresh();
-    // We intentionally call once on mount; refresh does not depend on changing values here
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    void refresh();
+  }, [refresh]);
 
   useEffect(() => {
     fetch('/api/me').then(async (r) => {
@@ -44,19 +42,20 @@ export default function AdminAnalysisPage() {
     }).catch(() => {});
   }, []);
 
-  // Re-fetch when role becomes available (after login) and on focus/visibility changes
+  // Re-fetch on focus/visibility when logged in (refresh also runs when `role` updates via [refresh] above)
   useEffect(() => {
     if (!role) return;
-    refresh();
-    const onFocus = () => refresh();
-    const onVisibility = () => { if (document.visibilityState === 'visible') refresh(); };
+    const onFocus = () => void refresh();
+    const onVisibility = () => {
+      if (document.visibilityState === 'visible') void refresh();
+    };
     window.addEventListener('focus', onFocus);
     document.addEventListener('visibilitychange', onVisibility);
     return () => {
       window.removeEventListener('focus', onFocus);
       document.removeEventListener('visibilitychange', onVisibility);
     };
-  }, [role]);
+  }, [role, refresh]);
 
   useEffect(() => {
     const paid = searchParams.get('paid');
@@ -89,7 +88,7 @@ export default function AdminAnalysisPage() {
         form.reset();
         await refresh();
       }
-    } catch (err) {
+    } catch {
       setError('Network error');
     } finally {
       setUploading(false);

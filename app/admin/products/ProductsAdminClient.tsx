@@ -73,6 +73,7 @@ export default function ProductsAdminClient({ initialProducts }: Props) {
     subFileRefs.forEach((r) => {
       if (r.current) r.current.value = '';
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- subFileRefs are stable useRef handles
   }, []);
 
   const clearEditPhoto = useCallback(() => {
@@ -85,6 +86,7 @@ export default function ProductsAdminClient({ initialProducts }: Props) {
     editSubFileRefs.forEach((r) => {
       if (r.current) r.current.value = '';
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- editSubFileRefs are stable useRef handles
   }, []);
 
   const closeAdd = useCallback(() => {
@@ -108,6 +110,7 @@ export default function ProductsAdminClient({ initialProducts }: Props) {
         if (r.current) r.current.value = '';
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- run when editing product id changes; refs stable
   }, [editing?.id]);
 
   function handlePhotoFile(e: React.ChangeEvent<HTMLInputElement>, mode: 'add' | 'edit') {

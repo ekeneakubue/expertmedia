@@ -21,7 +21,7 @@ function isReadOnlyHost(): boolean {
  */
 export async function saveUploadedFile(
   file: File,
-  folder: 'hero' | 'avatars',
+  folder: 'hero' | 'avatars' | 'team' | 'product',
   diskFileName: string,
 ): Promise<{ url: string; filename: string }> {
   const safeName = diskFileName.replace(/[^a-zA-Z0-9._-]/g, '_');
@@ -51,7 +51,7 @@ export async function saveUploadedFile(
   return { url: `/${folder}/${safeName}`, filename: safeName };
 }
 
-/** Remove a file from Blob (https URL) or local `public/` path (/hero/... or /avatars/...). */
+/** Remove a file from Blob (https URL) or local `public/` path (/hero/..., /avatars/..., /team/...). */
 export async function deleteStoredFile(url: string | null | undefined): Promise<void> {
   if (!url) return;
   if (url.startsWith('https://') && BLOB_TOKEN) {

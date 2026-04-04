@@ -35,16 +35,21 @@ export default async function AdminLayout({ children }: { children: ReactNode })
     } catch {}
   }
   return (
-    <div className="h-screen grid grid-cols-[240px_1fr] bg-gray-200">
-      <aside className="border-r bg-gray-800 text-gray-50 pl-5">
-        <div className="text-center w-full mb-6">
-          <Image src="/images/logo2.png" alt="Expert Media Solutions" width={160} height={48} className=" w-[50%] pt-6 inline-block" />
+    <div className="flex h-screen overflow-hidden bg-gray-200">
+      {/* Fixed sidebar — always 100vh, never scrolls */}
+      <aside className="fixed inset-y-0 left-0 z-20 w-[240px] flex flex-col border-r bg-gray-800 text-gray-50 overflow-y-auto">
+        <div className="text-center w-full mb-6 shrink-0">
+          <Image src="/images/logo2.png" alt="Expert Media Solutions" width={160} height={48} className="w-[50%] pt-6 inline-block" />
         </div>
-        <AdminNav role={role || undefined} userCount={userCount} />
-        <div className="mt-6 text-xs text-gray-500">v1.0</div>
+        <div className="flex-1 min-h-0">
+          <AdminNav role={role || undefined} userCount={userCount} />
+        </div>
+        <div className="shrink-0 px-5 py-4 text-xs text-gray-500">v1.0</div>
       </aside>
-      <main className="gap-4">
-        <div className="flex bg-gray-800 text-white p-6 items-center justify-between">
+
+      {/* Main content — offset by sidebar width, independently scrollable */}
+      <div className="flex flex-col flex-1 ml-[240px] min-h-0 overflow-hidden">
+        <div className="shrink-0 flex bg-gray-800 text-white px-6 py-4 items-center justify-between">
           <div className="text-lg font-semibold">Dashboard</div>
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2">
@@ -60,8 +65,10 @@ export default async function AdminLayout({ children }: { children: ReactNode })
             </form>
           </div>
         </div>
-        {children}
-      </main>
+        <main className="flex-1 overflow-y-auto">
+          {children}
+        </main>
+      </div>
     </div>
   );
 }

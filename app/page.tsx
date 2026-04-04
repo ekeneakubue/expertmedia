@@ -2,35 +2,53 @@ import Link from "next/link";
 import Image from "next/image";
 import { GrStatusGood } from "react-icons/gr";
 import { MdLocationCity } from "react-icons/md";
-import { BsRobot } from "react-icons/bs";
+import { BsRobot, BsYelp } from "react-icons/bs";
 import { SiOpensearch, SiSemanticscholar } from "react-icons/si";
 import { GiNotebook } from "react-icons/gi";
-import { FaEnvelope, FaPhoneAlt, FaFacebook, FaLinkedinIn, FaInstagram} from "react-icons/fa";
+import { GrDatabase } from "react-icons/gr";
+import { MdOutlineLaptopMac, MdModelTraining } from "react-icons/md";
+import { IoGameControllerSharp } from "react-icons/io5";
+import { FaEnvelope, FaPhoneAlt, FaFacebook, FaLinkedinIn, FaInstagram } from "react-icons/fa";
 import { MobileMenu } from "./_components/MobileMenu";
 import { HeroSlider } from "./_components/HeroSlider";
 import { ScrollToTop } from "./_components/ScrollToTop";
+import { PublicFooter } from "./_components/PublicFooter";
 import { getHeroImageUrlsForHome } from "@/lib/hero-images";
+import { getBoardMembersForHome } from "@/lib/team-members";
+import { getFeaturedProductsForHome } from "@/lib/products-public";
+import { ProductCard } from "./products/ProductCard";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const currentYear = new Date().getFullYear();
   const heroImages = await getHeroImageUrlsForHome();
+  const boardMembers = await getBoardMembersForHome();
+  const featuredProducts = await getFeaturedProductsForHome();
   return (
     <div className="min-h-screen">
       {/* Navbar + hero share exactly one viewport height */}
       <div className="h-screen flex flex-col">
       <header className="shrink-0 w-full bg-white top-0 z-10">
         <div className="w-full mx-auto flex items-center justify-between md:justify-center px-6 py-3 relative">
-          <Link href='/' className="font-semibold text-center"><Image src="/images/logo.png" alt="Expert Media Solutions" width={160} height={48} /></Link>
+          <Link href="/" className="shrink-0 leading-none">
+            <Image
+              src="/images/logo.png"
+              alt="Expert Media Solutions"
+              width={280}
+              height={84}
+              className="h-14 w-auto sm:h-16 md:h-[4.25rem] lg:h-[4.25rem]"
+              priority
+              quality={100}
+            />
+          </Link>
           <MobileMenu
             links={[
               { href: '#about', label: 'About Us' },
-              { href: '#services', label: 'Services' },
-              { href: '#team', label: 'Our Team' },
-              { href: '#board', label: 'Board Members' },
+              { href: '/services', label: 'Services' },
+              { href: '/products', label: 'Our Products' },
+              { href: '/team', label: 'Our Team' },
               { href: '#gallery', label: 'Gallery' },
-              { href: '#contact', label: 'Contact Us' },
+              { href: '/contact', label: 'Contact Us' },
               { href: '/login', label: 'Login' },
             ]}
           />
@@ -38,11 +56,11 @@ export default async function Home() {
         <div className="mt-0 hidden sm:flex items-center sm:w-full justify-center  text-xs bg-red-400">
           <nav className="flex items-center">
             <Link href="#about" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-l-2 border-l-amber-50 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">About Us</Link>
-            <a href="#services" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Services</a>
-            <a href="#team" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Our Team</a>
-            <a href="#board" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Board Members</a>
+            <a href="/services" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Services</a>
+            <a href="/products" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Our Products</a>
+            <a href="/team" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Our Team</a>
             <a href="#gallery" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Gallery</a>
-            <a href="#contacts" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Contact Us</a>
+            <a href="/contacts" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Contact Us</a>
             <a href="/login" className="min-w-[140px] cursor-pointer inline-block text-center text-[16px] py-4 text-white border-r-2 border-r-amber-50 transition-colors duration-200 hover:text-white hover:bg-red-500">Login</a>
           </nav>
         </div>
@@ -120,6 +138,14 @@ export default async function Home() {
                 your IT infrastructure and ensure your team has the tools they need to succeed.
               </p>
             </div>
+          </div>
+          <div className="mt-10 flex justify-center">
+            <Link
+              href="/about"
+              className="px-6 mt-2 bg-red-500 rounded py-2 text-gray-50 w-full sm:w-auto text-center"
+            >
+              More About EMS
+            </Link>
           </div>
         </div>
       </section>
@@ -200,47 +226,80 @@ export default async function Home() {
         </div>
       </section>      
 
-      {/* Board Members */}
-      <section id="board" className="px-6 sm:px-10 lg:px-20 py-16 ">
-        <div className="max-w-6xl mx-auto grid gap-3">
-          <h2 className="text-2xl font-semibold mb-6 border-l-8 border-solid border-red-500 px-4">Board Members</h2>
-          <p className="text-gray-700 dark:text-gray-200 text-sm">Guiding our mission and long-term strategy.</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div>
-              <div><Image src="/images/board/chukwuma.png" alt="Chukwuma" width={380} height={420} className="w-full h-auto" /></div>              
+      {/* Our Products — featured only, from database */}
+      <section id="products" className="px-6 sm:px-10 lg:px-20 py-16">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-2xl font-semibold mb-2 border-l-8 border-solid border-red-500 px-4">Our Products</h2>
+          <p className="text-gray-700 dark:text-neutral-300 text-sm mb-8 px-1">
+            Featured items from our catalog — pricing and details on each product page.
+          </p>
+          {featuredProducts.length === 0 ? (
+            <div className="rounded-2xl border border-dashed border-neutral-300 bg-neutral-50/80 px-8 py-14 text-center dark:border-neutral-600 dark:bg-neutral-900/40">
+              <p className="text-sm text-neutral-700 dark:text-neutral-300">
+                No featured products yet. Browse the full catalog or contact us for what you need.
+              </p>
+              <Link
+                href="/products"
+                className="mt-6 inline-block px-6 bg-red-500 rounded py-2 text-sm font-medium text-gray-50 hover:bg-red-600"
+              >
+                View catalog
+              </Link>
             </div>
-
-            <div>
-              <div><Image src="/images/board/nnamdi.png" alt="Nnamdi" width={380} height={420} className="w-full h-auto" /></div>              
-            </div>
-
-            <div>
-              <div><Image src="/images/board/rotanna.png" alt="Rotanna" width={380} height={420} className="w-full h-auto" /></div>              
-            </div>
+          ) : (
+            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-8 list-none p-0 m-0">
+              {featuredProducts.map((p) => (
+                <li key={p.id}>
+                  <ProductCard product={p} />
+                </li>
+              ))}
+            </ul>
+          )}
+          <div className="mt-10 flex justify-center">
+            <Link href="/products" className="px-6 mt-8 bg-red-500 rounded py-2 text-gray-50 w-full sm:w-auto text-center">
+              View all Products →
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Our Team */}
+      {/* Board members (from database via Neon) */}
       <section id="team" className="px-6 sm:px-10 lg:px-20 py-16 bg-gray-100">
-        <div className="max-w-6xl mx-auto grid gap-3">
-          <h2 className="text-2xl font-semibold mb-6 border-l-8 border-solid border-red-500 px-4">Our Team</h2>
-          <p className="text-gray-700 dark:text-gray-200 text-sm">Meet the professionals behind our solutions.</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div>
-              <div><Image src="/images/team/gabriel.png" alt="Gabriel" width={300} height={300} className="w-full h-auto" /></div>              
-            </div>
-            <div>
-              <div><Image src="/images/team/emeka2.png" alt="Emeka" width={300} height={300} className="w-full h-auto" /></div>              
-            </div>
-            <div>
-              <div><Image src="/images/team/emma.png" alt="Emma" width={300} height={300} className="w-full h-auto" /></div>              
-            </div>
-
-            <div>
-              <div><Image src="/images/team/ekene.png" alt="Ekene" width={300} height={300} className="w-full h-auto" /></div>              
-            </div>
-
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-2xl font-semibold mb-3 border-l-8 border-solid border-red-500 px-4">Board Members</h2>
+          <p className="text-gray-700 dark:text-gray-200 text-sm mb-8 max-w-2xl">
+            Guiding our mission, values, and long-term strategy.
+          </p>
+          <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+            {boardMembers.map((member) => (
+              <li
+                key={`board-${member.name}-${member.imageUrl}`}
+                className="group overflow-hidden rounded-2xl border border-neutral-200/90 bg-white shadow-sm transition-shadow duration-300 hover:shadow-md"
+              >
+                <div className="relative aspect-[4/5] overflow-hidden bg-neutral-200">
+                  <Image
+                    src={member.imageUrl}
+                    alt={member.name}
+                    fill
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent pt-24 pb-5 px-5">
+                    <p className="text-lg font-semibold text-white">{member.name}</p>
+                    {member.memberRole ? (
+                      <p className="mt-1 text-sm leading-snug text-white/90">{member.memberRole}</p>
+                    ) : null}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-10 flex justify-center">
+            <Link
+              href="/team"
+              className="px-6 mt-2 bg-red-500 rounded py-2 text-gray-50 w-full sm:w-auto text-center"
+            >
+              View full team →
+            </Link>
           </div>
         </div>
       </section>      
@@ -261,7 +320,14 @@ export default async function Home() {
             <Image src="/images/gallery/stc8.JPG" alt="Gallery image 8" width={600} height={400} className="w-full h-auto" />
             <Image src="/images/gallery/stc9.JPG" alt="Gallery image 9" width={600} height={400} className="w-full h-auto" />
           </div>
-          <button className="px-6 mt-8 bg-red-500 rounded py-2 text-gray-50 w-full sm:w-auto ">View More ...</button>
+          <div className="mt-10 flex justify-center">
+            <Link
+              href="/gallery"
+              className="px-6 mt-8 bg-red-500 rounded py-2 text-gray-50 w-full sm:w-auto text-center"
+            >
+              View More ...
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -335,60 +401,7 @@ export default async function Home() {
       </section>
 
 
-      {/* Footer */}
-      <footer className="px-6 sm:px-10 py-14 border-t border-white/10 text-sm text-gray-300 bg-neutral-950">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 items-start">
-          <div className="space-y-4 lg:col-span-5">
-            <Link href="/" className="inline-flex items-center">
-              <Image
-                src="/images/logo2.png"
-                alt="Expert Media Solutions"
-                width={120}
-                height={26}
-                className="h-auto w-auto brightness-110"
-              />
-            </Link>
-            <p className="text-sm leading-6 text-gray-400">
-              We help organizations scale with practical, modern technology solutions in automation,
-              analytics, and digital enablement.
-            </p>
-          </div>
-          <div className="lg:col-span-2">
-            <div className="font-semibold text-white mb-4 tracking-wide uppercase text-xs">Company</div>
-            <ul className="space-y-2.5">
-              <li><a className="hover:text-red-400 transition-colors" href="#about">About Us</a></li>
-              <li><a className="hover:text-red-400 transition-colors" href="#services">Services</a></li>
-              <li><a className="hover:text-red-400 transition-colors" href="#team">Our Team</a></li>
-              <li><a className="hover:text-red-400 transition-colors" href="#board">Board Members</a></li>
-            </ul>
-          </div>
-          <div className="lg:col-span-2">
-            <div className="font-semibold text-white mb-4 tracking-wide uppercase text-xs">Solutions</div>
-            <ul className="space-y-2.5">
-              <li><a className="hover:text-red-400 transition-colors" href="#services">RobEMS</a></li>
-              <li><a className="hover:text-red-400 transition-colors" href="#services">TalentEMS</a></li>
-              <li><a className="hover:text-red-400 transition-colors" href="#services">ScholaEMS</a></li>
-              <li><a className="hover:text-red-400 transition-colors" href="#services">EduEMS</a></li>
-            </ul>
-          </div>
-          <div className="lg:col-span-3">
-            <div className="font-semibold text-white mb-4 tracking-wide uppercase text-xs">Contact</div>
-            <ul className="space-y-2.5 text-gray-400">
-              <li><a href="mailto:help@expertmediasolution.com" className="hover:text-red-400 transition-colors">help@expertmediasolution.com</a></li>
-              <li><a href="tel:+2348034615603" className="hover:text-red-400 transition-colors">+234 8034 615 603</a></li>
-              <li>Nsukka, Enugu State, Nigeria</li>
-            </ul>
-          </div>
-        </div>
-        <div className="max-w-6xl mx-auto mt-10 pt-5 border-t border-white/10 flex flex-col sm:flex-row gap-3 items-center justify-between text-gray-400">
-          <div className="text-center sm:text-left">© {currentYear} ExpertMedia IT. All rights reserved.</div>
-          <div className="flex items-center gap-4">
-            <a href="https://wghp6.wghservers.com:2096/webmaillogout.cgi" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 transition-colors">Webmail</a>
-            <span className="text-white/20">|</span>
-            <Link href="/login" className="hover:text-red-400 transition-colors">Admin Portal</Link>
-          </div>
-        </div>
-      </footer>
+      <PublicFooter />
       <ScrollToTop />
     </div>
   );

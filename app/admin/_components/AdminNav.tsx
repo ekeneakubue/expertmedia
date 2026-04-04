@@ -6,8 +6,9 @@ import { usePathname } from 'next/navigation';
 const adminLinks = [
   { href: '/admin', label: 'Overview' },
   { href: '/admin/users', label: 'Users' },
+  { href: '/admin/team', label: 'Our Team' },
   { href: '/admin/clients', label: 'Clients' },
-  { href: '/admin/projects', label: 'Projects' },
+  { href: '/admin/products', label: 'Manage Products' },
   { href: '/admin/tickets', label: 'Tickets' },
   { href: '/admin/analysis', label: 'Data collection' },
   { href: '/admin/hero', label: 'Manage Hero' },
@@ -17,8 +18,9 @@ const adminLinks = [
 const staffLinks = [
   { href: '/admin', label: 'Overview' },
   { href: '/admin/users', label: 'Users' },
+  { href: '/admin/team', label: 'Our Team' },
   { href: '/admin/clients', label: 'Clients' },
-  { href: '/admin/projects', label: 'Projects' },
+  { href: '/admin/products', label: 'Manage Products' },
   { href: '/admin/tickets', label: 'Tickets' },
   { href: '/admin/analysis', label: 'Data collection' },
   { href: '/admin/hero', label: 'Manage Hero' },

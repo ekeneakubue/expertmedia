@@ -2,6 +2,16 @@
   "name": "expertmedia",
   "version": "0.1.0",
   "private": true,
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "not dead",
+    "Chrome >= 90",
+    "Firefox >= 90",
+    "Safari >= 15",
+    "iOS >= 15",
+    "Samsung >= 15"
+  ],
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "prisma generate && next build",
@@ -27,6 +37,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.27",
     "eslint": "^9",
     "eslint-config-next": "15.5.7",
     "prisma": "^6.15.0",

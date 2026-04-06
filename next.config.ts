@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: 'https', hostname: '**.blob.vercel-storage.com' },
       { protocol: 'https', hostname: 'blob.vercel-storage.com' },
+      // Product, team, and hero images can be any HTTPS URL from admin uploads (S3, CDNs, etc.)
+      { protocol: 'https', hostname: '**' },
     ],
   },
 };

@@ -12,12 +12,17 @@ export type PublicProduct = {
 };
 
 export function formatPriceNgn(kobo: number): string {
-  return new Intl.NumberFormat('en-NG', {
-    style: 'currency',
-    currency: 'NGN',
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(kobo / 100);
+  const naira = kobo / 100;
+  try {
+    return new Intl.NumberFormat('en-NG', {
+      style: 'currency',
+      currency: 'NGN',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(naira);
+  } catch {
+    return `₦${naira.toFixed(2)}`;
+  }
 }
 
 /** Trims and caps visible copy at `maxWords`, appending an ellipsis when shortened. */

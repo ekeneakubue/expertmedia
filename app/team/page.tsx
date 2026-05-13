@@ -103,10 +103,10 @@ export default async function TeamPage() {
                     className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   />
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent pt-24 pb-5 px-5">
-                    <p className="text-lg font-semibold text-white">{m.name}</p>
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent pt-24 pb-4 px-3 text-center sm:pb-5 sm:px-5 sm:text-left">
+                    <p className="text-sm font-semibold text-white sm:text-lg">{m.name}</p>
                     {m.memberRole ? (
-                      <p className="mt-1 text-sm leading-snug text-white/90">{m.memberRole}</p>
+                      <p className="mt-0.5 text-xs leading-snug text-white/90 sm:mt-1 sm:text-sm">{m.memberRole}</p>
                     ) : null}
                   </div>
                 </div>

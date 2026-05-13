@@ -16,13 +16,13 @@ export const metadata: Metadata = {
 const heroPattern =
   "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")";
 
-const PHONE_DISPLAY = "+234 8034 615 603";
-const PHONE_TEL = "+2348034615603";
+const PHONE_DISPLAY = "+234-704-246-2917";
+const PHONE_TEL = "+234-814-222-6615";
 const EMAIL = "help@expertmediasolution.com";
-const ADDRESS_LINE = "1, SCM Close, Onuiyi, Nsukka, Enugu State, Nigeria";
+const ADDRESS_LINE = "8 Akulue Street, Opp. E24 Hotel, Onuiyi, Nsukka, Enugu State, Nigeria";
 const MAPS_QUERY =
   "https://www.google.com/maps/search/?api=1&query=" +
-  encodeURIComponent("1 SCM Close, Onuiyi, Nsukka, Enugu State, Nigeria");
+  encodeURIComponent("8 Akulue Street, Opp. E24 Hotel, Onuiyi, Nsukka, Enugu State, Nigeria");
 
 type ContactCardProps = {
   href?: string;

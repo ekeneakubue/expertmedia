@@ -344,7 +344,7 @@ export default async function Home() {
               </span> 
               <div>
                 <strong>Call Us</strong>
-                <p>+234 8034 615 603</p>
+                <p>+234-704-246-2917 <br/> +234-814-222-6615</p>
               </div>
             </div>
             <div className="rounded-md py-[4rem] flex gap-2 px-[2rem] border-gray-300 border-[1px]">
@@ -353,7 +353,7 @@ export default async function Home() {
               </span> 
               <div>
                 <strong>Office Address</strong>
-                <p>1, SCM Close, Onuiyi, Nsukka, Enugu State, Nigeria</p>
+                <p>8 Akulue Street, Opp. E24 Hotel, Onuiyi, Nsukka, Enugu State, Nigeria</p>
               </div>
             </div>
             <div className="bg-white rounded-md py-[4rem] flex gap-2 px-[2rem]">

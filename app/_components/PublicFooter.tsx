@@ -75,18 +75,20 @@ export function PublicFooter() {
         <div className="flex flex-col items-center md:items-start lg:col-span-3">
           <div className="font-semibold text-white mb-4 tracking-wide uppercase text-xs">Contact</div>
           <ul className="space-y-2.5 text-gray-400 md:w-full">
-            <li>
-              <a href="mailto:help@expertmediasolution.com" className="hover:text-red-400 transition-colors">
-                help@expertmediasolution.com
-              </a>
-            </li>
-            <li>
-              <a href="tel:+2348034615603" className="hover:text-red-400 transition-colors">
-                +234 8034 615 603
-              </a>
-            </li>
-            <li>Nsukka, Enugu State, Nigeria</li>
-          </ul>
+          <li>
+            8 Akulue Street, Opp. E24 Hotel, Onuiyi, Nsukka, Enugu State, Nigeria.
+          </li>
+          <li>
+            <a href="mailto:help@expertmediasolution.com" className="hover:text-red-400 transition-colors">
+              help@expertmediasolution.com
+            </a>
+          </li>
+          <li>
+            <a href="tel:+2347042462917" className="hover:text-red-400 transition-colors">
+              +234-704-246-2917 <br/> +234-814-222-6615
+            </a>
+          </li>
+        </ul>
         </div>
       </div>
       <div className="max-w-6xl mx-auto mt-10 pt-5 border-t border-white/10 flex flex-col sm:flex-row gap-3 items-center justify-center sm:justify-between text-gray-400">

@@ -93,24 +93,22 @@ export default async function TeamPage() {
             {teamMembers.map((m) => (
               <li
                 key={`team-${m.name}-${m.imageUrl}`}
-                className="group flex flex-col overflow-hidden rounded-2xl border border-neutral-200/90 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+                className="group overflow-hidden rounded-2xl border border-neutral-200/90 bg-neutral-50/40 shadow-sm transition-shadow duration-300 hover:shadow-lg"
               >
-                <div className="relative aspect-square overflow-hidden bg-neutral-100">
+                <div className="relative aspect-[4/5] overflow-hidden bg-neutral-200">
                   <Image
                     src={m.imageUrl}
                     alt={m.name}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   />
-                </div>
-                <div className="flex flex-1 flex-col gap-1 border-t border-neutral-100 px-3 py-3.5 sm:px-4">
-                  <p className="text-sm font-semibold text-neutral-900 sm:text-base">{m.name}</p>
-                  {m.memberRole ? (
-                    <p className="text-xs leading-snug text-red-700/90 sm:text-sm">{m.memberRole}</p>
-                  ) : (
-                    <p className="text-xs text-neutral-500">Team member</p>
-                  )}
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent pt-24 pb-5 px-5">
+                    <p className="text-lg font-semibold text-white">{m.name}</p>
+                    {m.memberRole ? (
+                      <p className="mt-1 text-sm leading-snug text-white/90">{m.memberRole}</p>
+                    ) : null}
+                  </div>
                 </div>
               </li>
             ))}

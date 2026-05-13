@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { findUserByEmail, verifyPassword } from '@/lib/auth';
+import { dbUnreachableResponse } from '@/lib/prisma-http';
 import { prisma } from '@/lib/prisma';
 
 export const runtime = 'nodejs';
@@ -29,6 +30,8 @@ export async function POST(req: NextRequest) {
     res.cookies.set('userEmail', client.email || '', { httpOnly: true, sameSite: 'lax', path: '/', maxAge: 60 * 60 * 24 * 7 });
     return res;
   } catch (error: unknown) {
+    const db = dbUnreachableResponse(error);
+    if (db) return db;
     const message = error instanceof Error ? error.message : 'Server error';
     return NextResponse.json({ message }, { status: 500 });
   }
